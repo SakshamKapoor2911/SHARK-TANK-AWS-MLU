@@ -22,6 +22,9 @@ SHARK-TANK-AWS-MLU/
     ├── prismatic_build_kit.md                   # Ready-to-use seed prompt, widget map, and 2-min pitch script for Prismatic
     ├── prismatic_extended_modalities.md         # Slide decks, Socratic sparring, exam trap matrix, and flashcards
     └── prismatic_presentation_materials.md      # 2-minute timed pitch, 10-person role cards, 4-slide deck, and Q&A defense
+├── build_prismatic_deck.py                      # Production PPTX/PDF generation script (16:9 widescreen, dark modern theme)
+├── Prismatic_Shark_Tank_Pitch_Deck.pptx         # Executive PowerPoint Presentation with integrated speaker notes
+└── Prismatic_Shark_Tank_Pitch_Deck.pdf          # High-resolution PDF export for mobile, tablet, or projector display
 ```
 
 ---
