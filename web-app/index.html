@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prismatic — The Adaptive Learning Engine</title>
+  <!-- Zero External Dependency - Modern System Font Stack -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Optional uncommitted local configuration for live AI mode -->
+  <script src="config.local.js" onerror="window.DEEPSEEK_CONFIG=null;"></script>
+</head>
+<body>
+  <!-- Background Glow Gradients -->
+  <div class="bg-glow glow-cyan" aria-hidden="true"></div>
+  <div class="bg-glow glow-violet" aria-hidden="true"></div>
+
+  <!-- Header Navigation -->
+  <header class="app-header" role="banner">
+    <div class="header-brand">
+      <div class="logo-prism" aria-hidden="true">
+        <span class="prism-icon">◆</span>
+      </div>
+      <div>
+        <div class="brand-title">PRISMATIC</div>
+        <div class="brand-subtitle">The Adaptive Cognitive Engine</div>
+      </div>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-event">Cloud Connect 2026 · AWS × MLU × Howard</span>
+      <span class="badge badge-status" id="engineStatusBadge">● Local Engine Ready</span>
+      <button id="apiKeyToggleBtn" class="badge badge-cyan" title="Configure Live AI API Key" style="cursor: pointer; border: 1px solid var(--cyan-neon);">⚡ Live AI Settings</button>
+    </div>
+  </header>
+
+  <!-- Live AI Modal Dialog -->
+  <div id="apiModal" class="modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">⚡ DeepSeek V4 Flash / Live AI Configuration</h3>
+        <button id="closeModalBtn" class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <p class="modal-desc">Enter your DeepSeek API key for live generation, or leave blank to use the deterministic offline engine.</p>
+      <input type="password" id="apiKeyInput" placeholder="sk-..." autocomplete="off" class="modal-input">
+      <div class="modal-actions">
+        <button id="saveApiKeyBtn" class="btn btn-primary btn-sm">Save to LocalStorage</button>
+        <button id="clearApiKeyBtn" class="btn btn-secondary btn-sm">Clear Key (Offline Mode)</button>
+      </div>
+      <div id="apiStatusMessage" class="modal-status"></div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="app-container" role="main">
+    
+    <!-- Hero Banner -->
+    <section class="hero-section" aria-labelledby="heroHeadline">
+      <div class="hero-tag">COGNITIVE REFRACTION SUITE</div>
+      <h1 id="heroHeadline" class="hero-headline">Refracting Complex Knowledge Into Your Native Spectrum.</h1>
+      <p class="hero-subtext">300 students in 1 lecture hall shouldn't learn one way. Prismatic diagnoses your cognitive friction in 30 seconds and refracts any syllabus topic into 4 tailored learning modalities.</p>
+    </section>
+
+    <!-- Top Grid: Intake & Diagnostic -->
+    <div class="workspace-grid">
+      
+      <!-- Panel 1: Topic Intake -->
+      <section class="card intake-panel" aria-labelledby="intakeHeading">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="step-num" aria-hidden="true">01</span>
+            <h2 id="intakeHeading">Ingest Topic / Lecture Material</h2>
+          </div>
+          <span class="badge badge-cyan">Input</span>
+        </div>
+
+        <div class="preset-pills" role="group" aria-label="Topic presets">
+          <span class="preset-label">Quick Presets:</span>
+          <button class="pill-btn active" data-preset="dijkstra" aria-pressed="true">Dijkstra's Algorithm</button>
+          <button class="pill-btn" data-preset="respiration" aria-pressed="false">Cellular Respiration</button>
+          <button class="pill-btn" data-preset="macro" aria-pressed="false">Macro Supply Shifts</button>
+        </div>
+
+        <label for="topicInput" class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">Study Topic or Lecture Notes</label>
+        <textarea id="topicInput" rows="5" placeholder="Paste messy lecture notes, syllabus concepts, or exam study sheets..."></textarea>
+
+        <div class="input-actions">
+          <button id="refractBtn" class="btn btn-primary">
+            <span class="btn-spark" aria-hidden="true">⚡</span> Refract Into 4 Spectrums
+          </button>
+          <button id="audioSummaryBtn" class="btn btn-secondary">
+            <span aria-hidden="true">🔊</span> Listen (Audio Modality)
+          </button>
+        </div>
+      </section>
+
+      <!-- Panel 2: 30-Second Diagnostic -->
+      <section class="card diagnostic-panel" aria-labelledby="diagnosticHeading">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="step-num" aria-hidden="true">02</span>
+            <h2 id="diagnosticHeading">Rapid 5-Question Cognitive Triage</h2>
+          </div>
+          <span class="badge badge-violet">30 Seconds</span>
+        </div>
+
+        <div class="diagnostic-scroll">
+          <!-- Q1 -->
+          <div class="diag-group" data-q="1">
+            <div class="diag-label" id="q1-label">Q1. When facing a brutal new concept, what clicks first?</div>
+            <div class="choice-grid" role="group" aria-labelledby="q1-label">
+              <button class="choice-btn active" data-val="analogy" aria-pressed="true">Dorm / Real-World Analogy</button>
+              <button class="choice-btn" data-val="visual" aria-pressed="false">Visual Concept Map / Diagram</button>
+              <button class="choice-btn" data-val="socratic" aria-pressed="false">Practice Problem / Challenge</button>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="diag-group" data-q="2">
+            <div class="diag-label" id="q2-label">Q2. What causes you to zone out first in a 75-min lecture?</div>
+            <div class="choice-grid" role="group" aria-labelledby="q2-label">
+              <button class="choice-btn" data-val="text" aria-pressed="false">Dense 40-Page Slide Walls</button>
+              <button class="choice-btn active" data-val="math" aria-pressed="true">Abstract Unexplained Formulas</button>
+              <button class="choice-btn" data-val="monotone" aria-pressed="false">Monotone Unengaged Delivery</button>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="diag-group" data-q="3">
+            <div class="diag-label" id="q3-label">Q3. What is your current exam timeline?</div>
+            <div class="choice-grid" role="group" aria-labelledby="q3-label">
+              <button class="choice-btn active" data-val="cram" aria-pressed="true">Tomorrow Morning (Cram Mode)</button>
+              <button class="choice-btn" data-val="days" aria-pressed="false">Midterm in 3–5 Days</button>
+              <button class="choice-btn" data-val="curious" aria-pressed="false">Casual Concept Mastery</button>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="diag-group" data-q="4">
+            <div class="diag-label" id="q4-label">Q4. How do you test your own retention?</div>
+            <div class="choice-grid" role="group" aria-labelledby="q4-label">
+              <button class="choice-btn active" data-val="sparring" aria-pressed="true">Socratic Sparring / Debate</button>
+              <button class="choice-btn" data-val="flashcards" aria-pressed="false">Active Recall Flashcards</button>
+              <button class="choice-btn" data-val="redraw" aria-pressed="false">Redrawing Mental Blueprints</button>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="diag-group" data-q="5">
+            <div class="diag-label" id="q5-label">Q5. Pick your preferred AI mentor vibe:</div>
+            <div class="choice-grid" role="group" aria-labelledby="q5-label">
+              <button class="choice-btn" data-val="professor" aria-pressed="false">Socratic Professor</button>
+              <button class="choice-btn active" data-val="peer" aria-pressed="true">Collegiate Peer Coach</button>
+              <button class="choice-btn" data-val="ramsay" aria-pressed="false">No-Fluff Bullet-Point Bot</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-pill" role="status" aria-live="polite">
+          <span class="pill-dot" aria-hidden="true"></span>
+          <span id="profileSummary">Profile: Visuo-Conceptual · High-Urgency Cram Sprint</span>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Modalities Output Section -->
+    <section class="modalities-section" aria-labelledby="modalitiesHeading">
+      <div class="section-title-wrap">
+        <div>
+          <span class="section-tag">MULTI-MODAL REFRACTION RESULTS</span>
+          <h2 id="modalitiesHeading" class="section-title">The 4 Prismatic Learning Spectrums</h2>
+        </div>
+        <div class="modality-tabs" role="tablist" aria-label="Learning modalities">
+          <button class="tab-btn active" role="tab" id="tab-btn-analogy" aria-selected="true" aria-controls="tab-analogy" data-tab="analogy">🌈 Spectrum 1: Analogy</button>
+          <button class="tab-btn" role="tab" id="tab-btn-visual" aria-selected="false" aria-controls="tab-visual" data-tab="visual">📐 Spectrum 2: Visual Map</button>
+          <button class="tab-btn" role="tab" id="tab-btn-socratic" aria-selected="false" aria-controls="tab-socratic" data-tab="socratic">⚔️ Spectrum 3: Socratic Chat</button>
+          <button class="tab-btn" role="tab" id="tab-btn-deck" aria-selected="false" aria-controls="tab-deck" data-tab="deck">📽️ Spectrum 4: Exam Deck</button>
+        </div>
+      </div>
+
+      <!-- Tab 1: Analogy -->
+      <div class="tab-content active" id="tab-analogy" role="tabpanel" aria-labelledby="tab-btn-analogy">
+        <div class="modality-card">
+          <div class="modality-header">
+            <div>
+              <span class="mod-num">SPECTRUM 01</span>
+              <h3>The Campus Dining Hall Analogy</h3>
+              <p class="mod-sub">Eliminates academic friction by translating mathematics into everyday student navigation.</p>
+            </div>
+            <span class="mod-badge badge-cyan">Conceptual · Zero Jargon</span>
+          </div>
+          <div class="analogy-body" id="analogyText">
+            <!-- Dynamic Content -->
+          </div>
+          <div class="key-mappings">
+            <h4>Concept Mappings:</h4>
+            <div class="mapping-tags" id="mappingTags">
+              <!-- Dynamic Tags -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Visual Schema -->
+      <div class="tab-content" id="tab-visual" role="tabpanel" aria-labelledby="tab-btn-visual">
+        <div class="modality-card">
+          <div class="modality-header">
+            <div>
+              <span class="mod-num">SPECTRUM 02</span>
+              <h3>Interactive Structural Blueprint</h3>
+              <p class="mod-sub">Visual execution tree mapping state transitions, priority queues, and terminal conditions.</p>
+            </div>
+            <span class="mod-badge badge-violet">Schematic · Visuo-Spatial</span>
+          </div>
+          <div class="visual-canvas-wrap">
+            <svg id="conceptMapSvg" viewBox="0 0 900 320" class="concept-svg" role="img" aria-label="Interactive concept flowchart"></svg>
+          </div>
+          <div class="visual-legend" id="visualLegend">
+            <!-- Dynamic Nodes -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Socratic Sparring -->
+      <div class="tab-content" id="tab-socratic" role="tabpanel" aria-labelledby="tab-btn-socratic">
+        <div class="modality-card chat-card">
+          <div class="modality-header">
+            <div>
+              <span class="mod-num">SPECTRUM 03</span>
+              <h3>Socratic Active-Recall Sparring</h3>
+              <p class="mod-sub">Never dumps walls of text. Capped at 2 sentences. Forces retrieval practice.</p>
+            </div>
+            <div class="chat-header-actions">
+              <span class="mod-badge badge-emerald">Interactive · Kinesthetic</span>
+              <button id="resetChatBtn" class="btn btn-sm">Reset Dialogue</button>
+            </div>
+          </div>
+          <div class="chat-dialogue-window" id="chatWindow" role="log" aria-live="polite">
+            <!-- Messages inserted here -->
+          </div>
+          <form class="chat-input-bar" id="chatForm">
+            <label for="chatInput" class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">Your answer</label>
+            <input type="text" id="chatInput" placeholder="Answer the Socratic question or test an edge case..." autocomplete="off">
+            <button type="submit" class="btn btn-send">Send Answer</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tab 4: 4-Slide Micro Deck & Exam Trap Matrix -->
+      <div class="tab-content" id="tab-deck" role="tabpanel" aria-labelledby="tab-btn-deck">
+        <div class="deck-grid">
+          
+          <!-- Left: Micro-Deck Carousel -->
+          <div class="modality-card">
+            <div class="modality-header">
+              <div>
+                <span class="mod-num">SPECTRUM 04A</span>
+                <h3>4-Slide Micro-Presentation</h3>
+                <p class="mod-sub">High-yield revision deck for mobile study between classes.</p>
+              </div>
+              <div class="slide-nav-controls">
+                <button id="prevSlideBtn" class="slide-nav-btn" aria-label="Previous slide">‹</button>
+                <span id="slideIndicator" aria-live="polite">Slide 1 / 4</span>
+                <button id="nextSlideBtn" class="slide-nav-btn" aria-label="Next slide">›</button>
+              </div>
+            </div>
+            <div class="slide-frame" id="slideFrame">
+              <!-- Slide content rendered here -->
+            </div>
+          </div>
+
+          <!-- Right: Exam Trap Matrix -->
+          <div class="modality-card">
+            <div class="modality-header">
+              <div>
+                <span class="mod-num">SPECTRUM 04B</span>
+                <h3>Professor Exam Trap Matrix</h3>
+                <p class="mod-sub">What students think vs. what tricky professors actually put on Midterm #2.</p>
+              </div>
+              <span class="mod-badge badge-coral">Trap Radar</span>
+            </div>
+            <div class="trap-matrix-list" id="trapList">
+              <!-- Traps rendered here -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Pitch Timing Cue Bar (For Presenters) -->
+    <footer class="presenter-cue-bar" role="contentinfo">
+      <div class="cue-header">
+        <span class="cue-indicator" aria-hidden="true">⏱️</span>
+        <span class="cue-title">OFFICIAL 2-MINUTE SHARK TANK SPRINT CUE CARDS</span>
+      </div>
+      <div class="cue-chips">
+        <div class="cue-chip active">
+          <span class="chip-time">10s</span>
+          <span class="chip-name">Team Intro</span>
+        </div>
+        <div class="cue-chip">
+          <span class="chip-time">25s</span>
+          <span class="chip-name">The Hook (300 Students)</span>
+        </div>
+        <div class="cue-chip">
+          <span class="chip-time">45s</span>
+          <span class="chip-name">App Overview (4 Spectrums)</span>
+        </div>
+        <div class="cue-chip">
+          <span class="chip-time">25s</span>
+          <span class="chip-name">Why It Wins ($80/hr Gap)</span>
+        </div>
+        <div class="cue-chip">
+          <span class="chip-time">15s</span>
+          <span class="chip-name">Close (Canvas LMS)</span>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -3,4 +3,10 @@ Thumbs.db
 *.log
 node_modules/
 .env
-.env.local
+.env.*
+*.local
+*.key
+*secret*
+*password*
+config.local.js
+web-app/config.local.js
