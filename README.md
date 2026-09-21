@@ -117,9 +117,22 @@ keys exist in any tracked file.
 1. Open the app + `Prismatic_Shark_Tank_Pitch_Deck.pptx` side by side.
 2. Hit **Start Pitch** in the cue-bar timer — segment chips light in real time.
 3. Walk presets: Dijkstra → Respiration → Macro. Invite a judge to paste
-   custom notes and hit **Refract** (auto-mapped visual graph).
+   custom notes + **Refract** (auto-mapped visual graph).
 4. If Wi-Fi dies: everything above still works offline. If a PartyRock URL is
    configured, the **PartyRock Fallback ↗** link appears in the cue bar.
+
+**Staged demo shortcuts (deep links):**
+
+```text
+https://shark-tank-aws-mlu.vercel.app/web-app/?preset=quantum
+https://shark-tank-aws-mlu.vercel.app/web-app/?preset=tcp&stage=1&timer=1
+```
+
+`preset` pre-loads a topic, `stage=1` opens presenter Stage Mode,
+`timer=1` auto-starts the 120-second countdown. The app is installable
+offline (PWA) and ships a **📱 Try on Phone** QR for judges. A GitHub Pages
+mirror deploys automatically on every push (enable Pages → Source:
+GitHub Actions in repo settings once).
 
 Regenerate all artifacts with:
 

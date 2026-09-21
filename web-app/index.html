@@ -4,12 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prismatic — The Adaptive Learning Engine</title>
+  <meta name="description" content="Prismatic refracts dense lectures into 4 learning spectrums: analogies, visual maps, Socratic sparring, and exam trap decks. Shark Tank demo, Cloud Connect 2026.">
+  <meta name="theme-color" content="#f4f6fa" id="themeColorMeta">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Prismatic">
+  <meta property="og:title" content="Prismatic — The Adaptive Learning Engine">
+  <meta property="og:description" content="One lecture in, four learning spectrums out. Try the live Shark Tank demo.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shark-tank-aws-mlu.vercel.app/">
+  <meta property="og:image" content="https://shark-tank-aws-mlu.vercel.app/assets/slides/slide_1.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
   <!-- Zero External Dependency - Modern System Font Stack -->
   <link rel="stylesheet" href="styles.css">
   <!-- Optional uncommitted local configuration for live AI mode -->
   <script src="config.local.js" onerror="window.DEEPSEEK_CONFIG=null;"></script>
 </head>
-<body>
+<body class="light-theme">
   <!-- Background Glow Gradients -->
   <div class="bg-glow glow-cyan" aria-hidden="true"></div>
   <div class="bg-glow glow-violet" aria-hidden="true"></div>
@@ -28,6 +41,8 @@
     <div class="header-badges">
       <span class="badge badge-event">Cloud Connect 2026 · AWS × MLU × Howard</span>
       <span class="badge badge-status" id="engineStatusBadge">● Local Engine Ready</span>
+      <button id="themeToggleBtn" class="badge badge-violet" title="Toggle light / dark theme" style="cursor: pointer;">🌙 Dark</button>
+      <button id="phoneModalBtn" class="badge badge-emerald" title="Show QR for judges to try on their phones" style="cursor: pointer;">📱 Try on Phone</button>
       <button id="stageModeToggleBtn" class="badge badge-amber" title="Toggle Stage / Presenter Mode (Hotkey: P)" style="cursor: pointer; border: 1px solid var(--amber-neon);">🎬 Stage Mode [P]</button>
       <button id="apiKeyToggleBtn" class="badge badge-cyan" title="Configure Live AI API Key" style="cursor: pointer; border: 1px solid var(--cyan-neon);">⚡ Live AI Settings</button>
     </div>
@@ -50,14 +65,27 @@
     </div>
   </div>
 
+  <!-- Phone QR Modal -->
+  <div id="phoneModal" class="modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="phoneTitle">
+    <div class="modal-content" style="text-align: center; max-width: 360px;">
+      <div class="modal-header">
+        <h3 id="phoneTitle">📱 Scan to Try on Your Phone</h3>
+        <button id="phoneModalClose" class="modal-close" aria-label="Close">&times;</button>
+      </div>
+      <img src="vercel-qr.png" alt="QR code linking to the live Prismatic demo" width="220" height="220" style="background: #fff; padding: 12px; border-radius: 12px; border: 1px solid var(--border-subtle);">
+      <p class="modal-desc" style="margin-top: 0.75rem;">Judges: scan with your camera to refract your own lecture notes live.</p>
+      <p class="modal-desc" style="font-family: var(--font-mono);">shark-tank-aws-mlu.vercel.app</p>
+    </div>
+  </div>
+
   <!-- Main Container -->
   <main class="app-container" role="main">
     
     <!-- Hero Banner -->
     <section class="hero-section" aria-labelledby="heroHeadline">
-      <div class="hero-tag">COGNITIVE REFRACTION SUITE</div>
+      <div class="hero-tag">AGENTIC COGNITIVE ENGINE</div>
       <h1 id="heroHeadline" class="hero-headline">Refracting Complex Knowledge Into Your Native Spectrum.</h1>
-      <p class="hero-subtext">300 students in 1 lecture hall shouldn't learn one way. Prismatic diagnoses your cognitive friction in 30 seconds and refracts any syllabus topic into 4 tailored learning modalities.</p>
+      <p class="hero-subtext">Prismatic is an agentic learning system: a 30-second diagnostic profiles how you learn, then specialized agents refract any syllabus topic into 4 tailored modalities — analogies, visual blueprints, Socratic sparring, and exam trap decks.</p>
     </section>
 
     <!-- Top Grid: Intake & Diagnostic -->
@@ -153,7 +181,7 @@
             <div class="choice-grid" role="group" aria-labelledby="q5-label">
               <button class="choice-btn" data-val="professor" aria-pressed="false">Socratic Professor</button>
               <button class="choice-btn active" data-val="peer" aria-pressed="true">Collegiate Peer Coach</button>
-              <button class="choice-btn" data-val="ramsay" aria-pressed="false">No-Fluff Bullet-Point Bot</button>
+              <button class="choice-btn" data-val="ramsay" aria-pressed="false">Concise Drill Coach</button>
             </div>
           </div>
         </div>
@@ -187,8 +215,8 @@
           <div class="modality-header">
             <div>
               <span class="mod-num">SPECTRUM 01</span>
-              <h3>The Campus Dining Hall Analogy</h3>
-              <p class="mod-sub">Eliminates academic friction by translating mathematics into everyday student navigation.</p>
+              <h3>The Campus-Life Analogy</h3>
+              <p class="mod-sub">Eliminates academic friction by translating any subject into everyday student navigation.</p>
             </div>
             <span class="mod-badge badge-cyan">Conceptual · Zero Jargon</span>
           </div>
@@ -211,7 +239,7 @@
             <div>
               <span class="mod-num">SPECTRUM 02</span>
               <h3>Interactive Structural Blueprint</h3>
-              <p class="mod-sub">Visual execution tree mapping state transitions, priority queues, and terminal conditions.</p>
+              <p class="mod-sub">Maps mechanisms, states, and transitions into a visual execution blueprint.</p>
             </div>
             <span class="mod-badge badge-violet">Schematic · Visuo-Spatial</span>
           </div>
@@ -278,7 +306,7 @@
               <div>
                 <span class="mod-num">SPECTRUM 04B</span>
                 <h3>Professor Exam Trap Matrix</h3>
-                <p class="mod-sub">What students think vs. what tricky professors actually put on Midterm #2.</p>
+                <p class="mod-sub">What students think vs. what tricky professors actually put on midterms.</p>
               </div>
               <span class="mod-badge badge-coral">Trap Radar</span>
             </div>
@@ -311,6 +339,14 @@
       <div class="qa-stage" id="qaStage" role="log" aria-live="polite" aria-label="Simulated Q&A transcript">
         <div class="qa-empty">Select a question above — the sharks are waiting.</div>
       </div>
+    </section>
+
+    <!-- Judge Handouts (deck, cue cards, source) -->
+    <section class="handouts-bar" aria-label="Judge handouts and source links">
+      <span class="handouts-label">📎 Judge handouts</span>
+      <a class="handouts-link" href="../Prismatic_Shark_Tank_Pitch_Deck.pdf">Pitch Deck (PDF)</a>
+      <a class="handouts-link" href="../PRESENTER_TALKING_POINTS.pdf">Cue Cards (PDF)</a>
+      <a class="handouts-link" href="https://github.com/SakshamKapoor2911/SHARK-TANK-AWS-MLU" target="_blank" rel="noopener">GitHub ↗</a>
     </section>
 
     <!-- Pitch Timing Cue Bar (For Presenters) -->

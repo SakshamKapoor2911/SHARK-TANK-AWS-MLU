@@ -37,7 +37,12 @@ like `--cyan-neon` are legacy aliases — they now resolve to executive hues.
 
 ## 2. Screen vs. print (deliberate split, not drift)
 
-- **Screen** (web app, PPTX): dark executive theme.
+- **Screen** (web app, PPTX): dark executive theme. The web app ships a
+  `body.light-theme` variant as the **default** (projector/daylight readable);
+  it re-maps the same tokens to light surfaces with darkened accents
+  (`#0A7D64` `#7C3AED` `#047857` `#B45309` `#DC2626`) holding ≥4.5:1 on white.
+  New components must read acceptably in both variants — never hardcode a
+  hue that only works on dark.
 - **Print** (`PRESENTER_TALKING_POINTS.pdf`): light theme, dark ink on white —
   projectors and printers punish dark fills. Never "unify" print to dark.
   Print accents stay in the executive family (`#4A8FC2` banners, `#00C49F`

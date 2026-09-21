@@ -397,11 +397,64 @@ const apiStatusMessage = document.getElementById("apiStatusMessage");
 
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
+  initTheme();
   initApiConfig();
   loadPreset("dijkstra");
   setupEventListeners();
   renderConceptMap();
+  updateProfile();
+  applyDeepLinks();
+  registerServiceWorker();
 });
+
+// Light theme is the default (projector/daylight readable); dark is one tap away.
+function initTheme() {
+  let theme = null;
+  try { theme = localStorage.getItem("PRISMATIC_THEME"); } catch (err) {}
+  if (theme !== "light" && theme !== "dark") theme = "light";
+  setTheme(theme);
+}
+
+function setTheme(theme) {
+  const light = theme === "light";
+  document.body.classList.toggle("light-theme", light);
+  const btn = document.getElementById("themeToggleBtn");
+  if (btn) btn.textContent = light ? "🌙 Dark" : "☀ Light";
+  const meta = document.getElementById("themeColorMeta");
+  if (meta) meta.setAttribute("content", light ? "#f4f6fa" : "#0b0e14");
+  try { localStorage.setItem("PRISMATIC_THEME", theme); } catch (err) {}
+}
+
+// Deep links for staged demos: ?preset=quantum&stage=1&timer=1
+function applyDeepLinks() {
+  const params = new URLSearchParams(window.location.search);
+  const preset = params.get("preset");
+  if (preset && PRESETS[preset]) {
+    loadPreset(preset);
+    activatePresetButton(preset);
+  }
+  if (params.get("stage") === "1" && !document.body.classList.contains("stage-mode")) {
+    toggleStageMode();
+  }
+  if (params.get("timer") === "1") startPitchTimer();
+}
+
+function activatePresetButton(key) {
+  document.querySelectorAll(".pill-btn[data-preset]").forEach((b) => {
+    const on = b.dataset.preset === key;
+    b.classList.toggle("active", on);
+    b.setAttribute("aria-pressed", String(on));
+  });
+}
+
+// Offline-first: cache the demo shell so venue Wi-Fi outages can't stall the pitch.
+function registerServiceWorker() {
+  if ("serviceWorker" in navigator && /^https?:$/.test(window.location.protocol)) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    });
+  }
+}
 
 function initApiConfig() {
   // Check localStorage or window.DEEPSEEK_CONFIG
@@ -519,6 +572,7 @@ function renderConceptMap() {
     text.setAttribute("font-size", "11");
     text.setAttribute("font-family", "ui-monospace, monospace");
     text.setAttribute("text-anchor", "middle");
+    text.setAttribute("class", "edge-label");
     text.textContent = e.weight;
     svg.appendChild(text);
   });
@@ -543,6 +597,7 @@ function renderConceptMap() {
     text.setAttribute("font-size", "10");
     text.setAttribute("font-weight", "bold");
     text.setAttribute("text-anchor", "middle");
+    text.setAttribute("class", "node-label");
     text.textContent = n.label.length > 15 ? n.label.slice(0, 14) + "…" : n.label;
     svg.appendChild(text);
   });
@@ -610,7 +665,7 @@ function setupEventListeners() {
     });
   });
 
-  // Diagnostic Choice Buttons
+  // Diagnostic Choice Buttons (Q1 routes to the matching spectrum tab)
   document.querySelectorAll(".choice-btn").forEach(btn => {
     const handleChoice = () => {
       const parent = btn.closest(".choice-grid");
@@ -621,6 +676,11 @@ function setupEventListeners() {
       btn.classList.add("active");
       btn.setAttribute("aria-pressed", "true");
       updateProfile();
+      const group = btn.closest(".diag-group");
+      if (group && group.dataset.q === "1") {
+        const tab = document.querySelector(`.tab-btn[data-tab="${btn.dataset.val}"]`);
+        if (tab) tab.click();
+      }
     };
     btn.addEventListener("click", handleChoice);
     btn.addEventListener("keydown", (e) => {
@@ -742,6 +802,7 @@ function setupEventListeners() {
       const keys = Object.keys(PRESETS).filter(k => k !== currentPresetKey);
       const randomKey = keys[Math.floor(Math.random() * keys.length)];
       loadPreset(randomKey);
+      activatePresetButton(randomKey);
       runRefraction();
     });
   }
@@ -757,7 +818,36 @@ function setupEventListeners() {
     if ((e.key === "p" || e.key === "P") && e.target.tagName !== "TEXTAREA" && e.target.tagName !== "INPUT") {
       toggleStageMode();
     }
+    if (e.key === "Escape") {
+      apiModal.style.display = "none";
+      const phoneModal = document.getElementById("phoneModal");
+      if (phoneModal) phoneModal.style.display = "none";
+    }
   });
+
+  // Theme toggle (light default, dark one tap away)
+  const themeToggleBtn = document.getElementById("themeToggleBtn");
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+      setTheme(document.body.classList.contains("light-theme") ? "dark" : "light");
+    });
+  }
+
+  // Phone QR modal for judges
+  const phoneModalBtn = document.getElementById("phoneModalBtn");
+  const phoneModal = document.getElementById("phoneModal");
+  const phoneModalClose = document.getElementById("phoneModalClose");
+  if (phoneModalBtn && phoneModal) {
+    phoneModalBtn.addEventListener("click", () => { phoneModal.style.display = "flex"; });
+  }
+  if (phoneModalClose && phoneModal) {
+    phoneModalClose.addEventListener("click", () => { phoneModal.style.display = "none"; });
+  }
+  if (phoneModal) {
+    phoneModal.addEventListener("click", (e) => {
+      if (e.target === phoneModal) phoneModal.style.display = "none";
+    });
+  }
 
   // PartyRock one-click fallback (only shown when a URL is configured)
   initPartyRockFallback();
@@ -915,6 +1005,7 @@ function renderCustomConceptMap(text) {
       tag.setAttribute("font-size", "11");
       tag.setAttribute("font-family", "ui-monospace, monospace");
       tag.setAttribute("text-anchor", "middle");
+      tag.setAttribute("class", "edge-label");
       tag.textContent = `step ${i}`;
       svg.appendChild(tag);
     }
@@ -933,6 +1024,7 @@ function renderCustomConceptMap(text) {
     text.setAttribute("font-size", "10");
     text.setAttribute("font-weight", "bold");
     text.setAttribute("text-anchor", "middle");
+    text.setAttribute("class", "node-label");
     text.textContent = n.label.length > 18 ? n.label.slice(0, 17) + "…" : n.label;
     svg.appendChild(text);
   });
