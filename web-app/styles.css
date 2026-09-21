@@ -160,7 +160,7 @@ input:focus-visible,
 }
 
 .badge-status {
-  background: rgba(52, 211, 153, 0.15);
+  background: rgba(16, 185, 129, 0.15);
   border: 1px solid var(--emerald-neon);
   color: var(--emerald-neon);
 }
@@ -177,14 +177,45 @@ input:focus-visible,
   color: var(--violet-neon);
 }
 
+.badge-amber {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid var(--amber-neon);
+  color: var(--amber-neon);
+}
+
+.badge-amber.active {
+  background: var(--amber-neon);
+  color: #0b0e14;
+}
+
+/* Stage Mode (High-Readability Presenter View) */
+body.stage-mode {
+  font-size: 1.06rem;
+}
+body.stage-mode .app-container {
+  max-width: 1560px;
+}
+body.stage-mode .card {
+  box-shadow: 0 0 35px rgba(0, 196, 159, 0.12);
+  border-color: #4a8fc2;
+}
+body.stage-mode .presenter-cue-bar {
+  background: rgba(19, 24, 34, 0.98);
+  border-top: 2px solid var(--amber-neon);
+}
+body.stage-mode .cue-timer {
+  font-size: 1.65rem;
+  color: var(--amber-neon);
+}
+
 .badge-emerald {
-  background: rgba(52, 211, 153, 0.15);
+  background: rgba(16, 185, 129, 0.15);
   border: 1px solid var(--emerald-neon);
   color: var(--emerald-neon);
 }
 
 .badge-coral {
-  background: rgba(255, 107, 107, 0.15);
+  background: rgba(239, 68, 68, 0.15);
   border: 1px solid var(--coral-neon);
   color: var(--coral-neon);
 }
@@ -193,7 +224,7 @@ input:focus-visible,
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(8, 11, 19, 0.85);
+  background: rgba(11, 14, 20, 0.85);
   backdrop-filter: blur(8px);
   z-index: 200;
   display: flex;
@@ -1119,7 +1150,7 @@ textarea:focus {
 
 .cue-chip.lit {
   border-color: var(--amber-neon);
-  background: rgba(251, 191, 36, 0.12);
+  background: rgba(245, 158, 11, 0.12);
 }
 
 .cue-chip.done {

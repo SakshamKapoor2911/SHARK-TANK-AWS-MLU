@@ -28,6 +28,7 @@
     <div class="header-badges">
       <span class="badge badge-event">Cloud Connect 2026 · AWS × MLU × Howard</span>
       <span class="badge badge-status" id="engineStatusBadge">● Local Engine Ready</span>
+      <button id="stageModeToggleBtn" class="badge badge-amber" title="Toggle Stage / Presenter Mode (Hotkey: P)" style="cursor: pointer; border: 1px solid var(--amber-neon);">🎬 Stage Mode [P]</button>
       <button id="apiKeyToggleBtn" class="badge badge-cyan" title="Configure Live AI API Key" style="cursor: pointer; border: 1px solid var(--cyan-neon);">⚡ Live AI Settings</button>
     </div>
   </header>
@@ -77,6 +78,9 @@
           <button class="pill-btn active" data-preset="dijkstra" aria-pressed="true">Dijkstra's Algorithm</button>
           <button class="pill-btn" data-preset="respiration" aria-pressed="false">Cellular Respiration</button>
           <button class="pill-btn" data-preset="macro" aria-pressed="false">Macro Supply Shifts</button>
+          <button class="pill-btn" data-preset="quantum" aria-pressed="false">Quantum Superposition</button>
+          <button class="pill-btn" data-preset="tcp" aria-pressed="false">TCP 3-Way Handshake</button>
+          <button class="pill-btn" id="randomPresetBtn" style="border-color: var(--amber-neon); color: var(--amber-neon);" title="Test a surprise collegiate topic">🎲 Surprise Me</button>
         </div>
 
         <label for="topicInput" class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">Study Topic or Lecture Notes</label>

@@ -239,6 +239,138 @@ const PRESETS = {
       }
     ],
     socraticFirst: "Why does the Federal Reserve face an impossible dilemma when a recession is caused by an oil supply shock rather than a drop in consumer demand?"
+  },
+
+  quantum: {
+    title: "Quantum Superposition & Entanglement",
+    input: "In quantum mechanics, a qubit exists in a linear combination of basis states |0⟩ and |1⟩ (superposition) until observed. Measuring the state causes wavefunction collapse into an eigenstate with probability equal to the amplitude squared (|α|² + |β|² = 1). Quantum entanglement links two particles such that the quantum state of each cannot be described independently.",
+    analogy: "Imagine spinning a coin on a desk in the **Undergrad Library**. While spinning, it isn't Heads or Tails—it's simultaneously both at once (**Superposition**). The moment you slap your hand down on the coin, you force it to become either Heads or Tails (**Wavefunction Collapse**). Now imagine two enchanted smartwatches given to roommates across campus: no matter where they stand, if one watch beeps at 2:00 PM, the other instantly buzzes (**Entanglement**)—not because they sent a radio text, but because their states are fundamentally intertwined.",
+    mappings: [
+      { key: "Superposition", val: "Spinning Coin (Heads & Tails at Once)" },
+      { key: "Measurement", val: "Slapping Hand on Desk (Collapse)" },
+      { key: "Entanglement", val: "Synchronized Campus Roommate Watches" },
+      { key: "Probability", val: "Weighted Balance of the Coin" }
+    ],
+    svgNodes: [
+      { id: "S", label: "Qubit In Superposition", x: 140, y: 160, r: 35, color: "#00c49f" },
+      { id: "A", label: "State |0⟩ (Heads)", x: 380, y: 90, r: 30, color: "#a855f7" },
+      { id: "B", label: "State |1⟩ (Tails)", x: 380, y: 230, r: 30, color: "#4a8fc2" },
+      { id: "T", label: "Entangled Pair Collapse", x: 680, y: 160, r: 35, color: "#f59e0b" }
+    ],
+    svgEdges: [
+      { from: "S", to: "A", weight: "|α|² Prob" },
+      { from: "S", to: "B", weight: "|β|² Prob" },
+      { from: "A", to: "T", weight: "Correlated" },
+      { from: "B", to: "T", weight: "Instantaneous" }
+    ],
+    slides: [
+      {
+        title: "Slide 1: Foundations of Superposition",
+        bullets: [
+          "State vector: |ψ⟩ = α|0⟩ + β|1⟩, where α and β are complex amplitudes.",
+          "Normalization constraint: |α|² + |β|² = 1 (probabilities must sum to 100%).",
+          "Bloch Sphere: Geometric representation of a 2-level quantum state."
+        ]
+      },
+      {
+        title: "Slide 2: Measurement & Collapse",
+        bullets: [
+          "Measuring a qubit projects the state into |0⟩ or |1⟩ irreversibly.",
+          "Born Rule: Probability of outcome i equals |⟨i|ψ⟩|².",
+          "Measurement fundamentally disturbs the quantum system."
+        ]
+      },
+      {
+        title: "Slide 3: Professor Exam Traps",
+        bullets: [
+          "TRAP 1: Faster-than-light communication! Entanglement CANNOT transmit data (No-Communication Theorem).",
+          "TRAP 2: Superposition is NOT 'we just don't know yet' (Bell's Theorem rules out local hidden variables).",
+          "TRAP 3: Quantum Cloning is IMPOSSIBLE (No-Cloning Theorem)."
+        ]
+      },
+      {
+        title: "Slide 4: Summary Invariant",
+        bullets: [
+          "Superposition enables quantum parallelism in Shor's & Grover's algorithms.",
+          "Entanglement is a foundational resource for quantum teleportation and cryptography.",
+          "Memory Anchor: 'Spinning coin until the hand slaps down'."
+        ]
+      }
+    ],
+    traps: [
+      {
+        name: "Faster-Than-Light Signaling",
+        think: "Believing Alice can send instantaneous morse code to Bob via entangled spins.",
+        fix: "Bob's local measurement always looks 50/50 random noise until Alice shares her measurement basis over classical radio channels. No data travels FTL."
+      }
+    ],
+    socraticFirst: "If measuring Alice's entangled particle instantly dictates the state of Bob's particle across the galaxy, why can't Alice use this to send a faster-than-light signal?"
+  },
+
+  tcp: {
+    title: "TCP 3-Way Handshake & Flow Control",
+    input: "Transmission Control Protocol (TCP) provides reliable, ordered, and error-checked delivery of a stream of octets between applications. The connection is established via a 3-way handshake (SYN, SYN-ACK, ACK) using sequence numbers, and manages network congestion using sliding windows and AIMD (Additive Increase Multiplicative Decrease).",
+    analogy: "Think of setting up a **study session at the library over noisy campus walkie-talkies**. You press talk and say: 'Hey, I'm ready to study, sync with me!' (**SYN, Seq=x**). Your friend replies: 'Got you! I'm ready too, acknowledging your call!' (**SYN-ACK, Seq=y, Ack=x+1**). You confirm: 'Awesome, heard you, let's begin!' (**ACK, Ack=y+1**). If either person drops the call, nobody starts speaking until the handshake is verified.",
+    mappings: [
+      { key: "SYN Packet", val: "'Can you hear me at table 4?'" },
+      { key: "SYN-ACK", val: "'Yes I hear you, can you hear me?'" },
+      { key: "ACK", val: "'Connection confirmed, opening book!'" },
+      { key: "Sliding Window", val: "How many pages we can study before checking in" }
+    ],
+    svgNodes: [
+      { id: "S", label: "Client Host", x: 140, y: 160, r: 35, color: "#00c49f" },
+      { id: "A", label: "SYN Request (Seq=x)", x: 380, y: 90, r: 30, color: "#a855f7" },
+      { id: "B", label: "SYN-ACK (Ack=x+1)", x: 380, y: 230, r: 30, color: "#4a8fc2" },
+      { id: "T", label: "Server Connected (ACK)", x: 680, y: 160, r: 35, color: "#f59e0b" }
+    ],
+    svgEdges: [
+      { from: "S", to: "A", weight: "Step 1: SYN" },
+      { from: "A", to: "B", weight: "Step 2: SYN-ACK" },
+      { from: "B", to: "T", weight: "Step 3: ACK" },
+      { from: "S", to: "T", weight: "Established" }
+    ],
+    slides: [
+      {
+        title: "Slide 1: The 3-Way Handshake",
+        bullets: [
+          "Step 1: Client sends SYN with initial sequence number (ISN_c).",
+          "Step 2: Server responds with SYN-ACK, ISN_s, and ACK = ISN_c + 1.",
+          "Step 3: Client replies with ACK = ISN_s + 1. Connection ESTABLISHED."
+        ]
+      },
+      {
+        title: "Slide 2: Reliability & Flow Control",
+        bullets: [
+          "Cumulative ACKs acknowledge all bytes received up to that point.",
+          "Sliding Window prevents sender from overflowing receiver's buffer.",
+          "AIMD algorithm avoids network congestion collapse."
+        ]
+      },
+      {
+        title: "Slide 3: Professor Exam Traps",
+        bullets: [
+          "TRAP 1: Why 3 steps instead of 2? (To prevent duplicate delayed old packets from creating phantom connections).",
+          "TRAP 2: Sequence number increment (SYN and FIN flags consume 1 sequence number!).",
+          "TRAP 3: TCP vs UDP (UDP has zero handshake latency, best for real-time gaming/video)."
+        ]
+      },
+      {
+        title: "Slide 4: Summary Invariant",
+        bullets: [
+          "SYN floods exhaust server backlog queues (mitigated by SYN cookies).",
+          "Connection teardown requires a 4-way handshake (FIN, ACK, FIN, ACK).",
+          "Memory Anchor: 'SYN, SYN-ACK, ACK—verify both sides can speak and listen'."
+        ]
+      }
+    ],
+    traps: [
+      {
+        name: "Two-Way vs. Three-Way Handshake",
+        think: "Assuming a 2-way handshake is sufficient to establish a connection.",
+        fix: "In an unreliable network, a delayed obsolete SYN packet from an old aborted session could arrive at the server and trigger an unwanted connection if only 2 steps were used. The 3rd ACK proves the client is currently active."
+      }
+    ],
+    socraticFirst: "Why is a 2-way handshake insufficient to open a reliable connection over an unreliable IP network where packets can be delayed?"
   }
 };
 
@@ -619,8 +751,41 @@ function setupEventListeners() {
   document.getElementById("pitchStartBtn").addEventListener("click", startPitchTimer);
   document.getElementById("pitchResetBtn").addEventListener("click", resetPitchTimer);
 
+  // Random / Surprise Preset Button
+  const randomPresetBtn = document.getElementById("randomPresetBtn");
+  if (randomPresetBtn) {
+    randomPresetBtn.addEventListener("click", () => {
+      const keys = Object.keys(PRESETS).filter(k => k !== currentPresetKey);
+      const randomKey = keys[Math.floor(Math.random() * keys.length)];
+      loadPreset(randomKey);
+      runRefraction();
+    });
+  }
+
+  // Stage Mode (Presenter View)
+  const stageModeBtn = document.getElementById("stageModeToggleBtn");
+  if (stageModeBtn) {
+    stageModeBtn.addEventListener("click", toggleStageMode);
+  }
+
+  // Keyboard shortcut 'P' for Stage Mode
+  window.addEventListener("keydown", (e) => {
+    if ((e.key === "p" || e.key === "P") && e.target.tagName !== "TEXTAREA" && e.target.tagName !== "INPUT") {
+      toggleStageMode();
+    }
+  });
+
   // PartyRock one-click fallback (only shown when a URL is configured)
   initPartyRockFallback();
+}
+
+function toggleStageMode() {
+  const isStage = document.body.classList.toggle("stage-mode");
+  const stageModeBtn = document.getElementById("stageModeToggleBtn");
+  if (stageModeBtn) {
+    stageModeBtn.textContent = isStage ? "🎬 Exit Stage Mode" : "🎬 Stage Mode";
+    stageModeBtn.classList.toggle("active", isStage);
+  }
 }
 
 function updateProfile() {

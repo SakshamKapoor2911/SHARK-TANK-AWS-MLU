@@ -103,6 +103,12 @@
 ### Q4: *"What is your revenue and distribution model?"*
 > **Defense**: *"B2B university licensing (enterprise campus software) integrated into Canvas, plus a freemium B2C tier for students. Universities currently spend millions on retention programs; Prismatic directly increases course completion rates."*
 
+### Q5: *"How do you guarantee your Socratic AI won't hallucinate incorrect facts before an exam?"*
+> **Defense**: *"We implement a dual-layer cognitive guardrail: First, Bedrock foundation models are prompted with strict zero-shot syllabus grounding, penalizing extrapolation outside verified coursework facts. Second, our Socratic engine is hard-capped to 2 sentences and forbidden from asserting direct statements—it operates exclusively in inquiry mode, challenging the student to locate the correct invariant in their source notes."*
+
+### Q6: *"Why Amazon Quick over building a custom Next.js web application on AWS Amplify?"*
+> **Defense**: *"Zero infrastructure attack surface and enterprise IAM governance. Amazon Quick gives us native multi-widget event chaining, serverless scaling, and direct Bedrock integration in 60 minutes with zero CVE vulnerability. If a university deploys this across 50,000 students, campus IT administrators can approve and manage access via AWS IAM without auditing custom JavaScript backends."*
+
 ---
 
 ## 📋 What the Sharks Look For: Final Audit
