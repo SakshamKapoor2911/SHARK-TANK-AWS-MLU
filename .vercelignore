@@ -1,0 +1,12 @@
+.git
+.opencode/
+assets/
+challenge-context/
+*.py
+*.pptx
+*.pdf
+*.md
+*.example
+node_modules/
+config.local.js
+web-app/config.local.js
