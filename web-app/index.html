@@ -292,6 +292,27 @@
 
     </section>
 
+    <!-- Shark Q&A Simulator (Simulated Judges vs. Founders) -->
+    <section class="qa-section" aria-labelledby="qaHeading">
+      <div class="section-title-wrap">
+        <div>
+          <span class="section-tag">LIVE JUDGE SIMULATION</span>
+          <h2 id="qaHeading" class="section-title">Shark Q&amp;A Theater</h2>
+          <p class="mod-sub">Click a judge question to watch the simulated cross-examination, or run the full gauntlet.</p>
+        </div>
+        <div class="qa-controls">
+          <button id="qaPlayAllBtn" class="btn btn-primary btn-sm">▶ Play Full Gauntlet</button>
+          <button id="qaClearBtn" class="btn btn-secondary btn-sm">Clear Stage</button>
+        </div>
+      </div>
+      <div class="qa-question-grid" id="qaQuestionGrid" role="group" aria-label="Simulated judge questions">
+        <!-- Question buttons rendered here -->
+      </div>
+      <div class="qa-stage" id="qaStage" role="log" aria-live="polite" aria-label="Simulated Q&A transcript">
+        <div class="qa-empty">Select a question above — the sharks are waiting.</div>
+      </div>
+    </section>
+
     <!-- Pitch Timing Cue Bar (For Presenters) -->
     <footer class="presenter-cue-bar" role="contentinfo">
       <div class="cue-header">

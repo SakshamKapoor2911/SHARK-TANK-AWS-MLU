@@ -649,23 +649,7 @@ function setupEventListeners() {
   });
 
   // Refract Button (renders a dynamic graph for custom freeform topics)
-  refractBtn.addEventListener("click", () => {
-    refractBtn.innerHTML = "<span>⚡ Refracting Spectrums...</span>";
-    refractBtn.style.opacity = "0.7";
-    setTimeout(() => {
-      const customText = topicInput.value.trim();
-      if (customText && customText !== PRESETS[currentPresetKey].input) {
-        renderCustomConceptMap(customText);
-      } else {
-        renderConceptMap();
-      }
-      refractBtn.innerHTML = "<span>⚡ Refracted Successfully!</span>";
-      refractBtn.style.opacity = "1";
-      setTimeout(() => {
-        refractBtn.innerHTML = "<span class=\"btn-spark\">⚡</span> Refract Into 4 Spectrums";
-      }, 1500);
-    }, 500);
-  });
+  refractBtn.addEventListener("click", runRefraction);
 
   // Audio Summary Button (prefers a natural voice when available)
   audioSummaryBtn.addEventListener("click", () => {
@@ -777,15 +761,40 @@ function setupEventListeners() {
 
   // PartyRock one-click fallback (only shown when a URL is configured)
   initPartyRockFallback();
+
+  // Shark Q&A theater
+  renderSharkQAButtons();
+  document.getElementById("qaPlayAllBtn").addEventListener("click", playFullGauntlet);
+  document.getElementById("qaClearBtn").addEventListener("click", clearSharkStage);
 }
 
 function toggleStageMode() {
   const isStage = document.body.classList.toggle("stage-mode");
   const stageModeBtn = document.getElementById("stageModeToggleBtn");
   if (stageModeBtn) {
-    stageModeBtn.textContent = isStage ? "🎬 Exit Stage Mode" : "🎬 Stage Mode";
+    stageModeBtn.textContent = isStage ? "🎬 Exit Stage Mode [P]" : "🎬 Stage Mode [P]";
     stageModeBtn.classList.toggle("active", isStage);
   }
+}
+
+// Shared refraction flow: custom freeform notes get an auto-mapped graph,
+// active presets re-render their curated blueprint.
+function runRefraction() {
+  refractBtn.innerHTML = "<span>⚡ Refracting Spectrums...</span>";
+  refractBtn.style.opacity = "0.7";
+  setTimeout(() => {
+    const customText = topicInput.value.trim();
+    if (customText && customText !== PRESETS[currentPresetKey].input) {
+      renderCustomConceptMap(customText);
+    } else {
+      renderConceptMap();
+    }
+    refractBtn.innerHTML = "<span>⚡ Refracted Successfully!</span>";
+    refractBtn.style.opacity = "1";
+    setTimeout(() => {
+      refractBtn.innerHTML = "<span class=\"btn-spark\">⚡</span> Refract Into 4 Spectrums";
+    }, 1500);
+  }, 500);
 }
 
 function updateProfile() {
@@ -1008,4 +1017,124 @@ STRICT MANDATE:
     chatMessages.push({ sender: "ai", text: aiReply });
     renderChat();
   }, 350);
+}
+
+// ------------------------------------------------- Shark Q&A theater
+// Scripted judge-vs-founder exchanges (verbatim from PRESENTER_TALKING_POINTS.md).
+// Fully offline: makes the demo present itself with one click.
+const SHARK_QA = [
+  {
+    short: "Q1 · ChatGPT?",
+    q: "How does this differ from typing 'explain this to me' into ChatGPT?",
+    a: "ChatGPT is passive text generation: it dumps 800 words that cause cognitive glaze. Prismatic is an agentic multi-widget pipeline — a 30-second diagnostic triage plus 4 modalities, including a Socratic partner that forces active recall instead of lecturing."
+  },
+  {
+    short: "Q2 · Why Quick?",
+    q: "Why did you use Amazon Quick instead of coding a frontend from scratch?",
+    a: "Velocity and multi-model orchestration. In a 75-minute sprint, hand-coding auth, state, and Bedrock calls invites bugs. Quick's Apps mode let our 10-person team chain inputs into text, image, and chatbot widgets on one screen with zero boilerplate."
+  },
+  {
+    short: "Q3 · Cheating?",
+    q: "How do you prevent students from using this to cheat?",
+    a: "Prismatic is engineered for retention, not answer generation. The Socratic module is capped at 2 sentences and asks conceptual 'why' questions. It cannot write essays — it trains students to master mechanics for in-person exams."
+  },
+  {
+    short: "Q4 · Revenue?",
+    q: "What is your revenue and distribution model?",
+    a: "B2B university licensing integrated into Canvas, plus a freemium student tier. Universities already spend millions on retention — Prismatic directly lifts course completion rates."
+  },
+  {
+    short: "Q5 · Hallucinations?",
+    q: "How do you guarantee your Socratic AI won't hallucinate incorrect facts before an exam?",
+    a: "Dual-layer guardrails: strict zero-shot syllabus grounding that penalizes extrapolation, plus a Socratic engine hard-capped to 2 sentences in inquiry-only mode — it never asserts facts, it interrogates them."
+  },
+  {
+    short: "Q6 · Quick vs Amplify?",
+    q: "Why Amazon Quick over a custom Next.js app on AWS Amplify?",
+    a: "Zero infrastructure attack surface with enterprise IAM governance. Quick gives native multi-widget chaining and serverless Bedrock scaling in 60 minutes — campus IT can approve it for 50,000 students without auditing custom backends."
+  }
+];
+
+let sharkQaRunId = 0;
+
+function renderSharkQAButtons() {
+  const grid = document.getElementById("qaQuestionGrid");
+  if (!grid) return;
+  grid.innerHTML = SHARK_QA.map((item, i) =>
+    `<button class="qa-btn" data-qa="${i}">🦈 ${escapeHtml(item.short)}</button>`
+  ).join("");
+  grid.querySelectorAll(".qa-btn").forEach(btn => {
+    btn.addEventListener("click", () => playSharkQA(Number(btn.dataset.qa)));
+  });
+}
+
+function sharkStage() {
+  return document.getElementById("qaStage");
+}
+
+function clearSharkStage() {
+  sharkQaRunId++;
+  const stage = sharkStage();
+  if (stage) stage.innerHTML = '<div class="qa-empty">Select a question above — the sharks are waiting.</div>';
+  document.querySelectorAll(".qa-btn.playing").forEach(b => b.classList.remove("playing"));
+}
+
+function appendSharkBubble(sender, speaker, text) {
+  const stage = sharkStage();
+  const empty = stage.querySelector(".qa-empty");
+  if (empty) empty.remove();
+  const div = document.createElement("div");
+  div.className = `chat-bubble ${sender === "judge" ? "bubble-judge" : "bubble-founder"}`;
+  const label = document.createElement("span");
+  label.className = "bubble-speaker";
+  label.textContent = speaker;
+  const body = document.createElement("div");
+  body.textContent = text;
+  div.appendChild(label);
+  div.appendChild(body);
+  stage.appendChild(div);
+  stage.scrollTop = stage.scrollHeight;
+}
+
+function playSharkQA(i) {
+  const run = ++sharkQaRunId;
+  const item = SHARK_QA[i];
+  if (!item) return;
+  document.querySelectorAll(".qa-btn.playing").forEach(b => b.classList.remove("playing"));
+  const btn = document.querySelector(`.qa-btn[data-qa="${i}"]`);
+  if (btn) btn.classList.add("playing");
+  appendSharkBubble("judge", "🦈 Shark Judge", item.q);
+  setTimeout(() => {
+    if (run !== sharkQaRunId) return;
+    appendSharkBubble("founder", "🎓 Prismatic Founder", item.a);
+    if (btn) btn.classList.remove("playing");
+  }, 1400);
+}
+
+function playFullGauntlet() {
+  const run = ++sharkQaRunId;
+  clearSharkStageSilent();
+  let delay = 300;
+  SHARK_QA.forEach((item, i) => {
+    setTimeout(() => {
+      if (run !== sharkQaRunId) return;
+      document.querySelectorAll(".qa-btn.playing").forEach(b => b.classList.remove("playing"));
+      const btn = document.querySelector(`.qa-btn[data-qa="${i}"]`);
+      if (btn) btn.classList.add("playing");
+      appendSharkBubble("judge", "🦈 Shark Judge", item.q);
+    }, delay);
+    delay += 1600;
+    setTimeout(() => {
+      if (run !== sharkQaRunId) return;
+      appendSharkBubble("founder", "🎓 Prismatic Founder", item.a);
+      const btn = document.querySelector(`.qa-btn[data-qa="${i}"]`);
+      if (btn) btn.classList.remove("playing");
+    }, delay);
+    delay += 2200;
+  });
+}
+
+function clearSharkStageSilent() {
+  const stage = sharkStage();
+  if (stage) stage.innerHTML = "";
 }

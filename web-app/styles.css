@@ -1177,6 +1177,113 @@ textarea:focus {
 }
 
 /* ==============================================================================
+   SHARK Q&A THEATER (simulated judges vs. founders)
+   ============================================================================== */
+
+.qa-section {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.qa-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.qa-question-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.qa-btn {
+  background: var(--surface-inner);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-high);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  line-height: 1.35;
+}
+
+.qa-btn:hover {
+  border-color: var(--coral-neon);
+}
+
+.qa-btn.playing {
+  border-color: var(--amber-neon);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
+}
+
+.qa-stage {
+  min-height: 180px;
+  max-height: 340px;
+  overflow-y: auto;
+  background: var(--surface-inner);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.qa-empty {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  text-align: center;
+  margin: auto;
+}
+
+.bubble-judge {
+  align-self: flex-start;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid var(--coral-neon);
+  color: var(--text-high);
+  border-top-left-radius: 2px;
+}
+
+.bubble-judge .bubble-speaker {
+  color: var(--coral-neon);
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+
+.bubble-founder {
+  align-self: flex-end;
+  background: rgba(0, 196, 159, 0.08);
+  border: 1px solid var(--cyan-neon);
+  color: var(--text-high);
+  border-top-right-radius: 2px;
+}
+
+.bubble-founder .bubble-speaker {
+  color: var(--cyan-neon);
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .qa-question-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==============================================================================
    REDUCED MOTION (accessibility: disable transitions/animations on request)
    ============================================================================== */
 
