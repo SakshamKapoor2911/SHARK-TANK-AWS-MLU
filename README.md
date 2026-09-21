@@ -11,6 +11,24 @@ This repository stores all challenge context, scenario breakdowns, rubric defini
 ```text
 SHARK-TANK-AWS-MLU/
 ├── README.md                                    # Repository index and architectural overview
+├── PRESENTER_TALKING_POINTS.md                  # Verbatim 2-min timed script, pivots, choreography & Q&A
+├── PRESENTER_TALKING_POINTS.pdf                 # Portable 2-page print-ready cue card PDF (via ReportLab)
+├── build_talking_points_pdf.py                  # Portable ReportLab script generating the 2-page PDF
+├── build_prismatic_deck.py                      # Multi-platform 16:9 widescreen PPTX/PDF/PNG generator
+├── Prismatic_Shark_Tank_Pitch_Deck.pptx         # Executive PowerPoint Presentation with integrated speaker notes
+├── Prismatic_Shark_Tank_Pitch_Deck.pdf          # High-resolution PDF export for mobile, tablet, or projector display
+├── web-app/                                     # Zero-dependency, offline-ready glassmorphic web app
+│   ├── index.html                               # Semantic, accessible HTML structure
+│   ├── styles.css                               # Obsidian Neon responsive styling (down to 360px mobile)
+│   ├── app.js                                   # Multi-modal engine, safe XSS escaping & DeepSeek V4 integration
+│   └── config.local.js.example                  # Template for optional Live AI API key
+├── assets/
+│   ├── prismatic_github_qr.png                  # Glowing neon QR code pointing to live repo
+│   └── slides/                                  # 1080p slide images for visual reviews
+│       ├── slide_1.png                          # Slide 1: Title & The 35-Second Hook
+│       ├── slide_2.png                          # Slide 2: Segment 3 - App Overview (4 Spectrums)
+│       ├── slide_3.png                          # Slide 3: Segment 4 - Why It Wins ($80/hr Gap)
+│       └── slide_4.png                          # Slide 4: Segment 5 - The Close & Shark Criteria
 └── challenge-context/
     ├── event_overview.md                        # Challenge rules, timetable, tooling, and flow
     ├── scenarios.md                             # In-depth breakdown of all 5 student challenge scenarios
@@ -19,12 +37,10 @@ SHARK-TANK-AWS-MLU/
     ├── undergrad_problems_and_ideas_2026.md      # Unfinalized brainstorm of 2026 undergrad pain points & concepts
     ├── amazon_quick_setup_guide.md              # Setup, access methods, and sprint guide for Amazon Quick & PartyRock
     ├── agentic_learning_multimodal_plan.md      # Deep architectural blueprint for 4-modality diagnostic engine
-    ├── prismatic_build_kit.md                   # Ready-to-use seed prompt, widget map, and 2-min pitch script for Prismatic
+    ├── prismatic_build_kit.md                   # Scenario 2 aligned seed prompt, widget map, and 60-min sprint guide
     ├── prismatic_extended_modalities.md         # Slide decks, Socratic sparring, exam trap matrix, and flashcards
-    └── prismatic_presentation_materials.md      # 2-minute timed pitch, 10-person role cards, 4-slide deck, and Q&A defense
-├── build_prismatic_deck.py                      # Production PPTX/PDF generation script (16:9 widescreen, dark modern theme)
-├── Prismatic_Shark_Tank_Pitch_Deck.pptx         # Executive PowerPoint Presentation with integrated speaker notes
-└── Prismatic_Shark_Tank_Pitch_Deck.pdf          # High-resolution PDF export for mobile, tablet, or projector display
+    ├── prismatic_presentation_materials.md      # 2-minute timed pitch, 10-person role cards, 4-slide deck, and Q&A defense
+    └── official_presentation_master_playbook.md # Exact official handout 5-segment breakdown and voting playbook
 ```
 
 ---
