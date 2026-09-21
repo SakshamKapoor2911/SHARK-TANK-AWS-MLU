@@ -32,12 +32,12 @@ const PRESETS = {
       { key: "Visited Set", val: "Stations Already Visited" }
     ],
     svgNodes: [
-      { id: "S", label: "Entrance (Source)", x: 100, y: 160, r: 35, color: "#00e5ff" },
-      { id: "A", label: "Salad Station", x: 300, y: 80, r: 30, color: "#b464ff" },
-      { id: "B", label: "Grill Station", x: 300, y: 240, r: 30, color: "#b464ff" },
-      { id: "C", label: "Drink Oasis", x: 550, y: 80, r: 30, color: "#34d199" },
-      { id: "D", label: "Dessert Bar", x: 550, y: 240, r: 30, color: "#34d199" },
-      { id: "T", label: "Cashier (Target)", x: 780, y: 160, r: 35, color: "#fbbf24" }
+      { id: "S", label: "Entrance (Source)", x: 100, y: 160, r: 35, color: "#00c49f" },
+      { id: "A", label: "Salad Station", x: 300, y: 80, r: 30, color: "#a855f7" },
+      { id: "B", label: "Grill Station", x: 300, y: 240, r: 30, color: "#a855f7" },
+      { id: "C", label: "Drink Oasis", x: 550, y: 80, r: 30, color: "#10b981" },
+      { id: "D", label: "Dessert Bar", x: 550, y: 240, r: 30, color: "#10b981" },
+      { id: "T", label: "Cashier (Target)", x: 780, y: 160, r: 35, color: "#f59e0b" }
     ],
     svgEdges: [
       { from: "S", to: "A", weight: "2 min" },
@@ -114,11 +114,11 @@ const PRESETS = {
       { key: "Oxygen", val: "Cleanup Crew (Electron Catchers)" }
     ],
     svgNodes: [
-      { id: "S", label: "Glucose", x: 100, y: 160, r: 35, color: "#00e5ff" },
-      { id: "A", label: "Glycolysis (Cytoplasm)", x: 300, y: 160, r: 30, color: "#b464ff" },
-      { id: "B", label: "Pyruvate Prep", x: 480, y: 160, r: 30, color: "#b464ff" },
-      { id: "C", label: "Krebs Cycle", x: 650, y: 160, r: 30, color: "#34d199" },
-      { id: "T", label: "ETC & ATP Synthase", x: 800, y: 160, r: 35, color: "#fbbf24" }
+      { id: "S", label: "Glucose", x: 100, y: 160, r: 35, color: "#00c49f" },
+      { id: "A", label: "Glycolysis (Cytoplasm)", x: 300, y: 160, r: 30, color: "#a855f7" },
+      { id: "B", label: "Pyruvate Prep", x: 480, y: 160, r: 30, color: "#a855f7" },
+      { id: "C", label: "Krebs Cycle", x: 650, y: 160, r: 30, color: "#10b981" },
+      { id: "T", label: "ETC & ATP Synthase", x: 800, y: 160, r: 35, color: "#f59e0b" }
     ],
     svgEdges: [
       { from: "S", to: "A", weight: "+2 ATP" },
@@ -186,10 +186,10 @@ const PRESETS = {
       { key: "Price Level", val: "Surge Multiplier (1.0x to 3.5x)" }
     ],
     svgNodes: [
-      { id: "S", label: "Initial Equilibrium", x: 150, y: 160, r: 35, color: "#00e5ff" },
-      { id: "A", label: "Demand Shift", x: 380, y: 90, r: 30, color: "#b464ff" },
-      { id: "B", label: "Supply Shock", x: 380, y: 230, r: 30, color: "#ff6b6b" },
-      { id: "T", label: "New Price & GDP", x: 680, y: 160, r: 35, color: "#fbbf24" }
+      { id: "S", label: "Initial Equilibrium", x: 150, y: 160, r: 35, color: "#00c49f" },
+      { id: "A", label: "Demand Shift", x: 380, y: 90, r: 30, color: "#a855f7" },
+      { id: "B", label: "Supply Shock", x: 380, y: 230, r: 30, color: "#ef4444" },
+      { id: "T", label: "New Price & GDP", x: 680, y: 160, r: 35, color: "#f59e0b" }
     ],
     svgEdges: [
       { from: "S", to: "A", weight: "+Consumer Spend" },
@@ -373,7 +373,7 @@ function renderConceptMap() {
     line.setAttribute("y1", fromNode.y);
     line.setAttribute("x2", toNode.x);
     line.setAttribute("y2", toNode.y);
-    line.setAttribute("stroke", "#202d46");
+    line.setAttribute("stroke", "#2b3c55");
     line.setAttribute("stroke-width", "2");
     svg.appendChild(line);
 
@@ -383,7 +383,7 @@ function renderConceptMap() {
     const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
     text.setAttribute("x", midX);
     text.setAttribute("y", midY);
-    text.setAttribute("fill", "#00e5ff");
+    text.setAttribute("fill", "#00c49f");
     text.setAttribute("font-size", "11");
     text.setAttribute("font-family", "ui-monospace, monospace");
     text.setAttribute("text-anchor", "middle");
@@ -398,7 +398,7 @@ function renderConceptMap() {
     circle.setAttribute("cx", n.x);
     circle.setAttribute("cy", n.y);
     circle.setAttribute("r", n.r);
-    circle.setAttribute("fill", "#101622");
+    circle.setAttribute("fill", "#131822");
     circle.setAttribute("stroke", n.color);
     circle.setAttribute("stroke-width", "2");
     svg.appendChild(circle);
@@ -418,10 +418,10 @@ function renderConceptMap() {
   // Legend
   const legend = document.getElementById("visualLegend");
   legend.innerHTML = `
-    <div class="legend-item"><span class="legend-dot" style="background:#00e5ff"></span> Input / Source</div>
-    <div class="legend-item"><span class="legend-dot" style="background:#b464ff"></span> Intermediate State</div>
-    <div class="legend-item"><span class="legend-dot" style="background:#34d199"></span> Verified Route</div>
-    <div class="legend-item"><span class="legend-dot" style="background:#fbbf24"></span> Final Target / Settle</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#00c49f"></span> Input / Source</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#a855f7"></span> Intermediate State</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#10b981"></span> Verified Route</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span> Final Target / Settle</div>
   `;
 }
 
@@ -707,7 +707,7 @@ function initPartyRockFallback() {
 // spectrum never shows a stale preset graph for a custom topic.
 function renderCustomConceptMap(text) {
   const sentences = text.split(/[\n.!?]+/).map(s => s.trim()).filter(s => s.length > 24).slice(0, 5);
-  const palette = ["#00e5ff", "#b464ff", "#b464ff", "#34d199", "#fbbf24"];
+  const palette = ["#00c49f", "#a855f7", "#a855f7", "#10b981", "#f59e0b"];
   const labels = sentences.length
     ? sentences.map(s => s.split(/\s+/).slice(0, 5).join(" "))
     : ["Custom Topic"];
@@ -731,13 +731,13 @@ function renderCustomConceptMap(text) {
       line.setAttribute("y1", prev.y);
       line.setAttribute("x2", n.x - n.r);
       line.setAttribute("y2", n.y);
-      line.setAttribute("stroke", "#202d46");
+      line.setAttribute("stroke", "#2b3c55");
       line.setAttribute("stroke-width", "2");
       svg.appendChild(line);
       const tag = document.createElementNS(NS, "text");
       tag.setAttribute("x", (prev.x + n.x) / 2);
       tag.setAttribute("y", n.y - 44);
-      tag.setAttribute("fill", "#00e5ff");
+      tag.setAttribute("fill", "#00c49f");
       tag.setAttribute("font-size", "11");
       tag.setAttribute("font-family", "ui-monospace, monospace");
       tag.setAttribute("text-anchor", "middle");
@@ -748,7 +748,7 @@ function renderCustomConceptMap(text) {
     circle.setAttribute("cx", n.x);
     circle.setAttribute("cy", n.y);
     circle.setAttribute("r", n.r);
-    circle.setAttribute("fill", "#101622");
+    circle.setAttribute("fill", "#131822");
     circle.setAttribute("stroke", n.color);
     circle.setAttribute("stroke-width", "2");
     svg.appendChild(circle);
@@ -763,8 +763,8 @@ function renderCustomConceptMap(text) {
     svg.appendChild(text);
   });
   document.getElementById("visualLegend").innerHTML = `
-    <div class="legend-item"><span class="legend-dot" style="background:#00e5ff"></span> Custom topic flow (auto-mapped)</div>
-    <div class="legend-item"><span class="legend-dot" style="background:#fbbf24"></span> Final takeaway</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#00c49f"></span> Custom topic flow (auto-mapped)</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span> Final takeaway</div>
   `;
 }
 

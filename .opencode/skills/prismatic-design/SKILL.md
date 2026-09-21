@@ -8,31 +8,40 @@ description: Prismatic Obsidian Neon design system — canonical color tokens, t
 Single source of truth for every Prismatic surface. When visuals drift between
 the web app, the pitch deck, and the printed cue cards, this file wins.
 
-## 1. Canonical tokens (do not invent new hues)
+## 1. Canonical tokens — Executive theme (do not invent new hues)
 
-| Token    | Hex       | Usage                              |
-| -------- | --------- | ---------------------------------- |
-| `bg`     | `#080B13` | screen canvas                      |
-| `card`   | `#101622` | elevated cards                     |
-| `inner`  | `#161E30` | inset panels, pills                |
-| `border` | `#202D46` | subtle lines                        |
-| `cyan`   | `#00E5FF` | primary accent, focus rings        |
-| `violet` | `#B464FF` | secondary accent                   |
-| `emerald`| `#34D199` | success / win states               |
-| `amber`  | `#FBBF24` | warnings, timing                   |
-| `coral`  | `#FF6B6B` | alerts, trap radar                 |
-| `ink`    | `#FFFFFF` / `#F1F5F9` | headings / body on dark   |
-| `muted`  | `#94A3B8` | secondary text on dark (≥7:1)      |
+The project migrated from Obsidian Neon to the MatrAIx executive palette.
+These values are authoritative across all surfaces:
 
-CSS variables in `web-app/styles.css` and RGB constants in
-`build_prismatic_deck.py` must carry identical hex values. Check both files
-when changing any token.
+| Token     | Hex       | Usage                              |
+| --------- | --------- | ---------------------------------- |
+| `bg`      | `#0B0E14` | screen canvas                      |
+| `card`    | `#131822` | elevated cards                     |
+| `inner`   | `#1A202E` | inset panels, pills                |
+| `hover`   | `#222B3D` | hover fills                        |
+| `border`  | `#2B3C55` | subtle lines                       |
+| `primary` | `#4A8FC2` | phosphor blue, executive primary   |
+| `mint`    | `#00C49F` | metrics, success, focus rings      |
+| `violet`  | `#A855F7` | spectral accent                    |
+| `amber`   | `#F59E0B` | warnings, timing, traps            |
+| `coral`   | `#EF4444` | alerts, trap radar                 |
+| `ink`     | `#FFFFFF` / `#E8E9EC` | headings / body on dark   |
+| `muted`   | `#A0A8B4` | secondary text on dark             |
+| `dim`     | `#78808E` | captions                           |
+
+CSS variables in `web-app/styles.css`, hardcoded hexes in `web-app/app.js`
+(SVG nodes, edges, legends), RGB constants in `build_prismatic_deck.py`,
+and the print accents in `build_talking_points_pdf.py` must carry identical
+hex values. Check all four files when changing any token. Variable names
+like `--cyan-neon` are legacy aliases — they now resolve to executive hues.
 
 ## 2. Screen vs. print (deliberate split, not drift)
 
-- **Screen** (web app, PPTX): dark Obsidian Neon.
+- **Screen** (web app, PPTX): dark executive theme.
 - **Print** (`PRESENTER_TALKING_POINTS.pdf`): light theme, dark ink on white —
   projectors and printers punish dark fills. Never "unify" print to dark.
+  Print accents stay in the executive family (`#4A8FC2` banners, `#00C49F`
+  highlights, slate body text).
 
 ## 3. Hard rules for any UI change
 

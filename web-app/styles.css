@@ -166,13 +166,13 @@ input:focus-visible,
 }
 
 .badge-cyan {
-  background: rgba(0, 229, 255, 0.15);
+  background: rgba(0, 196, 159, 0.15);
   border: 1px solid var(--cyan-neon);
   color: var(--cyan-neon);
 }
 
 .badge-violet {
-  background: rgba(180, 100, 255, 0.15);
+  background: rgba(168, 85, 247, 0.15);
   border: 1px solid var(--violet-neon);
   color: var(--violet-neon);
 }
@@ -209,7 +209,7 @@ input:focus-visible,
   max-width: 480px;
   width: 100%;
   padding: 1.5rem;
-  box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 30px rgba(0, 196, 159, 0.2);
 }
 
 .modal-header {
@@ -290,7 +290,7 @@ input:focus-visible,
   letter-spacing: 0.1em;
   color: var(--cyan-neon);
   background: var(--surface-inner);
-  border: 1px solid rgba(0, 229, 255, 0.3);
+  border: 1px solid rgba(0, 196, 159, 0.3);
   padding: 0.3rem 0.9rem;
   border-radius: var(--radius-full);
   margin-bottom: 0.75rem;
@@ -330,7 +330,7 @@ input:focus-visible,
 }
 
 .card:hover {
-  border-color: rgba(0, 229, 255, 0.4);
+  border-color: rgba(0, 196, 159, 0.4);
   box-shadow: var(--shadow-glow);
 }
 
@@ -397,7 +397,7 @@ input:focus-visible,
 }
 
 .pill-btn.active {
-  background: rgba(0, 229, 255, 0.15);
+  background: rgba(0, 196, 159, 0.15);
   border-color: var(--cyan-neon);
   color: var(--cyan-neon);
 }
@@ -421,7 +421,7 @@ textarea {
 
 textarea:focus {
   border-color: var(--cyan-neon);
-  box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0, 196, 159, 0.2);
 }
 
 /* Buttons */
@@ -447,14 +447,14 @@ textarea:focus {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--cyan-neon) 0%, #00a8cc 100%);
-  color: #080b13;
-  box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+  background: linear-gradient(135deg, var(--cyan-neon) 0%, #0a7d64 100%);
+  color: #0b0e14;
+  box-shadow: 0 4px 15px rgba(0, 196, 159, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.45);
+  box-shadow: 0 6px 20px rgba(0, 196, 159, 0.45);
 }
 
 .btn-secondary {
@@ -531,7 +531,7 @@ textarea:focus {
 }
 
 .choice-btn.active {
-  background: rgba(180, 100, 255, 0.15);
+  background: rgba(168, 85, 247, 0.15);
   border-color: var(--violet-neon);
   color: var(--text-white);
   font-weight: 700;
@@ -621,7 +621,7 @@ textarea:focus {
   background: var(--surface-card);
   color: var(--cyan-neon);
   border: 1px solid var(--cyan-neon);
-  box-shadow: 0 2px 8px rgba(0, 229, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 196, 159, 0.2);
 }
 
 .tab-content {
@@ -781,7 +781,7 @@ textarea:focus {
 .bubble-ai {
   align-self: flex-start;
   background: var(--surface-inner);
-  border: 1px solid rgba(0, 229, 255, 0.25);
+  border: 1px solid rgba(0, 196, 159, 0.25);
   color: var(--text-high);
   border-top-left-radius: 2px;
 }
@@ -796,7 +796,7 @@ textarea:focus {
 
 .bubble-user {
   align-self: flex-end;
-  background: linear-gradient(135deg, rgba(180, 100, 255, 0.2) 0%, rgba(0, 229, 255, 0.2) 100%);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(0, 196, 159, 0.2) 100%);
   border: 1px solid var(--violet-neon);
   color: var(--text-white);
   border-top-right-radius: 2px;
@@ -825,7 +825,7 @@ textarea:focus {
 
 .btn-send {
   background: var(--cyan-neon);
-  color: #080b13;
+  color: #0b0e14;
   font-weight: 700;
 }
 
@@ -996,7 +996,7 @@ textarea:focus {
 
 .cue-chip.active {
   border-color: var(--cyan-neon);
-  background: rgba(0, 229, 255, 0.12);
+  background: rgba(0, 196, 159, 0.12);
 }
 
 .chip-time {
@@ -1142,7 +1142,7 @@ textarea:focus {
 }
 
 .cue-fallback-link:hover {
-  background: rgba(0, 229, 255, 0.12);
+  background: rgba(0, 196, 159, 0.12);
 }
 
 /* ==============================================================================
