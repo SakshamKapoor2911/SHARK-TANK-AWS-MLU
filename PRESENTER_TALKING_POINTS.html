@@ -1,13 +1,4 @@
-import os
-import sys
-import subprocess
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent
-HTML_PATH = BASE_DIR / "PRESENTER_TALKING_POINTS.html"
-PDF_PATH = BASE_DIR / "PRESENTER_TALKING_POINTS.pdf"
-
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -446,42 +437,3 @@ html_content = """<!DOCTYPE html>
 
 </body>
 </html>
-"""
-
-def generate_pdf():
-    with open(HTML_PATH, "w", encoding="utf-8") as f:
-        f.write(html_content)
-    print(f"[+] Wrote styled HTML talking points: {HTML_PATH}")
-
-    # Prioritize Chrome/Edge for publication-grade Skia/PDF rendering
-    candidates = [
-        Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe"),
-        Path(r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"),
-        Path(r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"),
-    ]
-
-    for browser in candidates:
-        if browser.exists():
-            print(f"[*] Rendering Skia/PDF via Chromium engine ({browser.name})...")
-            cmd = [
-                str(browser),
-                "--headless",
-                "--disable-gpu",
-                f"--print-to-pdf={PDF_PATH}",
-                "--no-pdf-header-footer",
-                str(HTML_PATH)
-            ]
-            res = subprocess.run(cmd, capture_output=True, text=True)
-            if res.returncode == 0 and PDF_PATH.exists():
-                print(f"[+] Successfully exported publication-grade Skia/PDF: {PDF_PATH}")
-                return
-
-    print("[!] No Chromium engine found. Falling back to ReportLab...")
-    from reportlab.lib.pagesizes import letter
-    from reportlab.platypus import SimpleDocTemplate, Paragraph
-    from reportlab.lib.styles import getSampleStyleSheet
-    doc = SimpleDocTemplate(str(PDF_PATH), pagesize=letter)
-    doc.build([Paragraph("Fallback document", getSampleStyleSheet()['Normal'])])
-
-if __name__ == "__main__":
-    generate_pdf()

@@ -1,5 +1,8 @@
 // Example local config for Prismatic Live AI
 // Copy this file to config.local.js and add your DeepSeek API key:
 window.DEEPSEEK_CONFIG = {
-  apiKey: "YOUR_DEEPSEEK_API_KEY_HERE"
+  apiKey: "YOUR_DEEPSEEK_API_KEY_HERE",
+  // Optional: published PartyRock fallback URL for stage Wi-Fi outages.
+  // When set, a "PartyRock Fallback" link appears in the pitch cue bar.
+  partyRockUrl: ""
 };

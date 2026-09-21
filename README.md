@@ -75,6 +75,61 @@ SHARK-TANK-AWS-MLU/
 
 ---
 
+## ▶️ Run the Live Demo
+
+No build step, no dependencies, no `.env` file. The demo is a static
+three-file web app (`web-app/index.html` + `styles.css` + `app.js`) that runs
+100% offline in any modern browser.
+
+**Option A — Zero setup (recommended for stage):**
+
+```text
+Double-click web-app/index.html
+```
+
+That's it. Presets, diagnostic, all 4 spectrums, Socratic sparring, and the
+120-second pitch timer work with no network.
+
+**Option B — Local server (presentation cart / projector):**
+
+```powershell
+cd web-app
+python -m http.server 8000
+# open http://localhost:8000
+```
+
+**Option C — Live AI mode (optional DeepSeek upgrade):**
+
+1. Click **⚡ Live AI Settings** in the app header.
+2. Paste a DeepSeek API key → saved to browser `localStorage` only.
+   *Or* copy `web-app/config.local.js.example` → `web-app/config.local.js`
+   (git-ignored, never committed) and add the key + optional `partyRockUrl`.
+3. The status badge flips to **⚡ Live DeepSeek V4 Engine Active**.
+   Without a key, the deterministic offline engine runs — nothing breaks.
+
+**Do we need a `.env`? No.** Browsers can't read `.env`, and committing one
+with a real key would leak it to a public repo. Secrets stay in
+`localStorage` or the git-ignored `config.local.js`. Verified: no `sk-`
+keys exist in any tracked file.
+
+**Pitch-time runbook (2 minutes):**
+
+1. Open the app + `Prismatic_Shark_Tank_Pitch_Deck.pptx` side by side.
+2. Hit **Start Pitch** in the cue-bar timer — segment chips light in real time.
+3. Walk presets: Dijkstra → Respiration → Macro. Invite a judge to paste
+   custom notes and hit **Refract** (auto-mapped visual graph).
+4. If Wi-Fi dies: everything above still works offline. If a PartyRock URL is
+   configured, the **PartyRock Fallback ↗** link appears in the cue bar.
+
+Regenerate all artifacts with:
+
+```powershell
+python build_prismatic_deck.py        # PPTX + PDF + assets/slides/*.png
+python build_talking_points_pdf.py    # PRESENTER_TALKING_POINTS.html + .pdf
+```
+
+---
+
 ## 🛠️ Next Steps & Extensions
 
 With this foundation established, we can build:

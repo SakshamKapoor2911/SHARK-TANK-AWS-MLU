@@ -3,22 +3,22 @@
    ============================================================================== */
 
 :root {
-  --bg-color: #080b13;
-  --surface-card: #101622;
-  --surface-inner: #161e30;
-  --surface-hover: #1c2740;
-  --border-subtle: #202d46;
+  --bg-color: #0b0e14;
+  --surface-card: #131822;
+  --surface-inner: #1a202e;
+  --surface-hover: #222b3d;
+  --border-subtle: #2b3c55;
   
-  --cyan-neon: #00e5ff;
-  --violet-neon: #b464ff;
-  --emerald-neon: #34d199;
-  --amber-neon: #fbbf24;
-  --coral-neon: #ff6b6b;
+  --cyan-neon: #00c49f;
+  --violet-neon: #4a8fc2;
+  --emerald-neon: #10b981;
+  --amber-neon: #f59e0b;
+  --coral-neon: #ef4444;
 
   --text-white: #ffffff;
-  --text-high: #f1f5f9;
-  --text-muted: #94a3b8;
-  --text-dim: #64748b;
+  --text-high: #e8e9ec;
+  --text-muted: #a0a8b4;
+  --text-dim: #78808e;
 
   /* Zero-dependency offline native system font stack */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
@@ -29,7 +29,7 @@
   --radius-sm: 8px;
   --radius-full: 9999px;
   
-  --shadow-glow: 0 0 25px rgba(0, 229, 255, 0.12);
+  --shadow-glow: 0 0 25px rgba(0, 196, 159, 0.12);
 }
 
 * {
@@ -49,10 +49,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Accessible Focus Rings */
+/* Accessible Focus Rings (all keyboard-operable elements incl. trap cards) */
 button:focus-visible,
 textarea:focus-visible,
-input:focus-visible {
+input:focus-visible,
+.trap-card:focus-visible {
   outline: 2px solid var(--cyan-neon);
   outline-offset: 2px;
 }
@@ -1085,5 +1086,102 @@ textarea:focus {
 
   .input-actions {
     flex-direction: column;
+  }
+}
+
+/* ==============================================================================
+   PITCH TIMER (interactive 120s countdown in the presenter cue bar)
+   ============================================================================== */
+
+.cue-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cue-timer {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-white);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.7rem;
+  min-width: 4.5rem;
+  text-align: center;
+}
+
+.cue-timer.overtime {
+  color: var(--coral-neon);
+  border-color: var(--coral-neon);
+}
+
+.cue-chip.lit {
+  border-color: var(--amber-neon);
+  background: rgba(251, 191, 36, 0.12);
+}
+
+.cue-chip.done {
+  border-color: var(--emerald-neon);
+  opacity: 0.75;
+}
+
+.cue-chip.done .chip-time {
+  color: var(--emerald-neon);
+}
+
+.cue-fallback-link {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--cyan-neon);
+  text-decoration: none;
+  border: 1px solid var(--cyan-neon);
+  border-radius: var(--radius-full);
+  padding: 0.3rem 0.75rem;
+}
+
+.cue-fallback-link:hover {
+  background: rgba(0, 229, 255, 0.12);
+}
+
+/* ==============================================================================
+   REDUCED MOTION (accessibility: disable transitions/animations on request)
+   ============================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .bg-glow {
+    display: none;
+  }
+}
+
+/* ==============================================================================
+   PRINT (clean cue cards: no glows, static header)
+   ============================================================================== */
+
+@media print {
+  .bg-glow {
+    display: none;
+  }
+
+  .app-header {
+    position: static;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .card,
+  .modalities-section,
+  .presenter-cue-bar {
+    break-inside: avoid;
   }
 }

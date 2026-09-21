@@ -516,11 +516,17 @@ function setupEventListeners() {
     }
   });
 
-  // Refract Button
+  // Refract Button (renders a dynamic graph for custom freeform topics)
   refractBtn.addEventListener("click", () => {
     refractBtn.innerHTML = "<span>⚡ Refracting Spectrums...</span>";
     refractBtn.style.opacity = "0.7";
     setTimeout(() => {
+      const customText = topicInput.value.trim();
+      if (customText && customText !== PRESETS[currentPresetKey].input) {
+        renderCustomConceptMap(customText);
+      } else {
+        renderConceptMap();
+      }
       refractBtn.innerHTML = "<span>⚡ Refracted Successfully!</span>";
       refractBtn.style.opacity = "1";
       setTimeout(() => {
@@ -529,7 +535,7 @@ function setupEventListeners() {
     }, 500);
   });
 
-  // Audio Summary Button
+  // Audio Summary Button (prefers a natural voice when available)
   audioSummaryBtn.addEventListener("click", () => {
     const textToSpeak = PRESETS[currentPresetKey].analogy.replace(/[*_#]/g, "");
     if ("speechSynthesis" in window) {
@@ -537,6 +543,8 @@ function setupEventListeners() {
       const utterance = new SpeechSynthesisUtterance(textToSpeak);
       utterance.rate = 1.05;
       utterance.pitch = 1.0;
+      const voice = pickNaturalVoice();
+      if (voice) utterance.voice = voice;
       window.speechSynthesis.speak(utterance);
       audioSummaryBtn.innerHTML = "<span>🔊 Speaking Analogy...</span>";
       utterance.onend = () => {
@@ -606,6 +614,13 @@ function setupEventListeners() {
     updateEngineStatus();
     setTimeout(() => { apiModal.style.display = "none"; }, 800);
   });
+
+  // Pitch Timer (120s countdown lighting each cue segment in real time)
+  document.getElementById("pitchStartBtn").addEventListener("click", startPitchTimer);
+  document.getElementById("pitchResetBtn").addEventListener("click", resetPitchTimer);
+
+  // PartyRock one-click fallback (only shown when a URL is configured)
+  initPartyRockFallback();
 }
 
 function updateProfile() {
@@ -614,6 +629,143 @@ function updateProfile() {
   const urgency = activeChoices[2] || "Cram Mode";
   const persona = activeChoices[4] || "Collegiate Peer";
   profileSummary.innerText = `Profile: ${intake} · ${urgency} (${persona} Persona)`;
+}
+
+// Prefer a natural/online English voice; fall back to the browser default.
+function pickNaturalVoice() {
+  try {
+    const voices = window.speechSynthesis.getVoices();
+    if (!voices || !voices.length) return null;
+    return voices.find(v => /natural|online/i.test(v.name) && /^en/i.test(v.lang))
+      || voices.find(v => /^en[-_]US/i.test(v.lang))
+      || voices.find(v => /^en/i.test(v.lang))
+      || null;
+  } catch (err) {
+    return null;
+  }
+}
+
+// Prime the async voice list on supporting browsers (Chrome loads lazily).
+if ("speechSynthesis" in window && typeof window.speechSynthesis.onvoiceschanged !== "undefined") {
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
+
+// ---------------------------------------------------------------- Pitch timer
+let pitchTimerId = null;
+let pitchStartTs = 0;
+
+function startPitchTimer() {
+  resetPitchTimer(false);
+  pitchStartTs = Date.now();
+  document.getElementById("pitchStartBtn").textContent = "Restart Pitch";
+  pitchTimerId = setInterval(updatePitchTimer, 250);
+  updatePitchTimer();
+}
+
+function resetPitchTimer(clearLabel = true) {
+  if (pitchTimerId) clearInterval(pitchTimerId);
+  pitchTimerId = null;
+  const timer = document.getElementById("pitchTimer");
+  timer.textContent = "2:00";
+  timer.classList.remove("overtime");
+  document.querySelectorAll("#cueChips .cue-chip").forEach(c => c.classList.remove("lit", "done"));
+  if (clearLabel) document.getElementById("pitchStartBtn").textContent = "Start Pitch";
+}
+
+function updatePitchTimer() {
+  const elapsed = Math.floor((Date.now() - pitchStartTs) / 1000);
+  const remaining = 120 - elapsed;
+  const timer = document.getElementById("pitchTimer");
+  if (remaining >= 0) {
+    timer.textContent = `${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, "0")}`;
+  } else {
+    timer.textContent = `+${Math.floor(-remaining / 60)}:${String(-remaining % 60).padStart(2, "0")}`;
+    timer.classList.add("overtime");
+  }
+  document.querySelectorAll("#cueChips .cue-chip").forEach(chip => {
+    const start = Number(chip.dataset.start);
+    const end = Number(chip.dataset.end);
+    chip.classList.toggle("lit", elapsed >= start && elapsed < end);
+    chip.classList.toggle("done", elapsed >= end);
+  });
+  if (elapsed > 180) resetPitchTimer(); // auto-stop 60s past overtime
+}
+
+// ------------------------------------------------- PartyRock fallback link
+function initPartyRockFallback() {
+  const url = (window.DEEPSEEK_CONFIG && window.DEEPSEEK_CONFIG.partyRockUrl)
+    || (window.PRISMATIC_CONFIG && window.PRISMATIC_CONFIG.partyRockUrl)
+    || "";
+  if (!url) return;
+  const link = document.getElementById("partyRockLink");
+  link.href = url;
+  link.style.display = "";
+}
+
+// --------------------------------------- Dynamic graph for custom topics
+// Builds a horizontal concept chain from freeform notes so the visual
+// spectrum never shows a stale preset graph for a custom topic.
+function renderCustomConceptMap(text) {
+  const sentences = text.split(/[\n.!?]+/).map(s => s.trim()).filter(s => s.length > 24).slice(0, 5);
+  const palette = ["#00e5ff", "#b464ff", "#b464ff", "#34d199", "#fbbf24"];
+  const labels = sentences.length
+    ? sentences.map(s => s.split(/\s+/).slice(0, 5).join(" "))
+    : ["Custom Topic"];
+  const nodes = labels.map((label, i) => ({
+    id: `N${i}`,
+    label,
+    x: 100 + i * (700 / Math.max(labels.length - 1, 1)),
+    y: 160,
+    r: i === 0 || i === labels.length - 1 ? 35 : 30,
+    color: palette[Math.min(i, palette.length - 1)]
+  }));
+  const svg = document.getElementById("conceptMapSvg");
+  svg.setAttribute("viewBox", "0 0 900 320");
+  svg.innerHTML = "";
+  const NS = "http://www.w3.org/2000/svg";
+  nodes.forEach((n, i) => {
+    if (i > 0) {
+      const prev = nodes[i - 1];
+      const line = document.createElementNS(NS, "line");
+      line.setAttribute("x1", prev.x + prev.r);
+      line.setAttribute("y1", prev.y);
+      line.setAttribute("x2", n.x - n.r);
+      line.setAttribute("y2", n.y);
+      line.setAttribute("stroke", "#202d46");
+      line.setAttribute("stroke-width", "2");
+      svg.appendChild(line);
+      const tag = document.createElementNS(NS, "text");
+      tag.setAttribute("x", (prev.x + n.x) / 2);
+      tag.setAttribute("y", n.y - 44);
+      tag.setAttribute("fill", "#00e5ff");
+      tag.setAttribute("font-size", "11");
+      tag.setAttribute("font-family", "ui-monospace, monospace");
+      tag.setAttribute("text-anchor", "middle");
+      tag.textContent = `step ${i}`;
+      svg.appendChild(tag);
+    }
+    const circle = document.createElementNS(NS, "circle");
+    circle.setAttribute("cx", n.x);
+    circle.setAttribute("cy", n.y);
+    circle.setAttribute("r", n.r);
+    circle.setAttribute("fill", "#101622");
+    circle.setAttribute("stroke", n.color);
+    circle.setAttribute("stroke-width", "2");
+    svg.appendChild(circle);
+    const text = document.createElementNS(NS, "text");
+    text.setAttribute("x", n.x);
+    text.setAttribute("y", n.y + 4);
+    text.setAttribute("fill", "#ffffff");
+    text.setAttribute("font-size", "10");
+    text.setAttribute("font-weight", "bold");
+    text.setAttribute("text-anchor", "middle");
+    text.textContent = n.label.length > 18 ? n.label.slice(0, 17) + "…" : n.label;
+    svg.appendChild(text);
+  });
+  document.getElementById("visualLegend").innerHTML = `
+    <div class="legend-item"><span class="legend-dot" style="background:#00e5ff"></span> Custom topic flow (auto-mapped)</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#fbbf24"></span> Final takeaway</div>
+  `;
 }
 
 // Generate response: Live DeepSeek V4 Flash or Deterministic Engine

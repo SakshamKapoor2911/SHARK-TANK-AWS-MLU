@@ -10,3 +10,4 @@ node_modules/
 *password*
 config.local.js
 web-app/config.local.js
+.opencode/

@@ -294,27 +294,33 @@
         <span class="cue-indicator" aria-hidden="true">⏱️</span>
         <span class="cue-title">OFFICIAL 2-MINUTE SHARK TANK SPRINT CUE CARDS</span>
       </div>
-      <div class="cue-chips">
-        <div class="cue-chip active">
+      <div class="cue-chips" id="cueChips">
+        <div class="cue-chip" data-start="0" data-end="10">
           <span class="chip-time">10s</span>
           <span class="chip-name">Team Intro</span>
         </div>
-        <div class="cue-chip">
+        <div class="cue-chip" data-start="10" data-end="35">
           <span class="chip-time">25s</span>
           <span class="chip-name">The Hook (300 Students)</span>
         </div>
-        <div class="cue-chip">
+        <div class="cue-chip" data-start="35" data-end="80">
           <span class="chip-time">45s</span>
           <span class="chip-name">App Overview (4 Spectrums)</span>
         </div>
-        <div class="cue-chip">
+        <div class="cue-chip" data-start="80" data-end="105">
           <span class="chip-time">25s</span>
           <span class="chip-name">Why It Wins ($80/hr Gap)</span>
         </div>
-        <div class="cue-chip">
+        <div class="cue-chip" data-start="105" data-end="120">
           <span class="chip-time">15s</span>
           <span class="chip-name">Close (Canvas LMS)</span>
         </div>
+      </div>
+      <div class="cue-controls">
+        <span class="cue-timer" id="pitchTimer" role="timer" aria-live="off">2:00</span>
+        <button id="pitchStartBtn" class="btn btn-primary btn-sm">Start Pitch</button>
+        <button id="pitchResetBtn" class="btn btn-secondary btn-sm">Reset</button>
+        <a id="partyRockLink" class="cue-fallback-link" href="#" target="_blank" rel="noopener" style="display: none;">PartyRock Fallback ↗</a>
       </div>
     </footer>
 
