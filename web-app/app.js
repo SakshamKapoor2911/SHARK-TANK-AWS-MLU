@@ -425,7 +425,7 @@ function setTheme(theme) {
   try { localStorage.setItem("PRISMATIC_THEME", theme); } catch (err) {}
 }
 
-// Deep links for staged demos: ?preset=quantum&stage=1&timer=1
+// Deep links for staged demos: ?preset=quantum&stage=1
 function applyDeepLinks() {
   const params = new URLSearchParams(window.location.search);
   const preset = params.get("preset");
@@ -436,7 +436,6 @@ function applyDeepLinks() {
   if (params.get("stage") === "1" && !document.body.classList.contains("stage-mode")) {
     toggleStageMode();
   }
-  if (params.get("timer") === "1") startPitchTimer();
 }
 
 function activatePresetButton(key) {
@@ -791,10 +790,6 @@ function setupEventListeners() {
     setTimeout(() => { apiModal.style.display = "none"; }, 800);
   });
 
-  // Pitch Timer (120s countdown lighting each cue segment in real time)
-  document.getElementById("pitchStartBtn").addEventListener("click", startPitchTimer);
-  document.getElementById("pitchResetBtn").addEventListener("click", resetPitchTimer);
-
   // Random / Surprise Preset Button
   const randomPresetBtn = document.getElementById("randomPresetBtn");
   if (randomPresetBtn) {
@@ -849,13 +844,6 @@ function setupEventListeners() {
     });
   }
 
-  // PartyRock one-click fallback (only shown when a URL is configured)
-  initPartyRockFallback();
-
-  // Shark Q&A theater
-  renderSharkQAButtons();
-  document.getElementById("qaPlayAllBtn").addEventListener("click", playFullGauntlet);
-  document.getElementById("qaClearBtn").addEventListener("click", clearSharkStage);
 }
 
 function toggleStageMode() {
@@ -912,58 +900,6 @@ function pickNaturalVoice() {
 // Prime the async voice list on supporting browsers (Chrome loads lazily).
 if ("speechSynthesis" in window && typeof window.speechSynthesis.onvoiceschanged !== "undefined") {
   window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
-}
-
-// ---------------------------------------------------------------- Pitch timer
-let pitchTimerId = null;
-let pitchStartTs = 0;
-
-function startPitchTimer() {
-  resetPitchTimer(false);
-  pitchStartTs = Date.now();
-  document.getElementById("pitchStartBtn").textContent = "Restart Pitch";
-  pitchTimerId = setInterval(updatePitchTimer, 250);
-  updatePitchTimer();
-}
-
-function resetPitchTimer(clearLabel = true) {
-  if (pitchTimerId) clearInterval(pitchTimerId);
-  pitchTimerId = null;
-  const timer = document.getElementById("pitchTimer");
-  timer.textContent = "2:00";
-  timer.classList.remove("overtime");
-  document.querySelectorAll("#cueChips .cue-chip").forEach(c => c.classList.remove("lit", "done"));
-  if (clearLabel) document.getElementById("pitchStartBtn").textContent = "Start Pitch";
-}
-
-function updatePitchTimer() {
-  const elapsed = Math.floor((Date.now() - pitchStartTs) / 1000);
-  const remaining = 120 - elapsed;
-  const timer = document.getElementById("pitchTimer");
-  if (remaining >= 0) {
-    timer.textContent = `${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, "0")}`;
-  } else {
-    timer.textContent = `+${Math.floor(-remaining / 60)}:${String(-remaining % 60).padStart(2, "0")}`;
-    timer.classList.add("overtime");
-  }
-  document.querySelectorAll("#cueChips .cue-chip").forEach(chip => {
-    const start = Number(chip.dataset.start);
-    const end = Number(chip.dataset.end);
-    chip.classList.toggle("lit", elapsed >= start && elapsed < end);
-    chip.classList.toggle("done", elapsed >= end);
-  });
-  if (elapsed > 180) resetPitchTimer(); // auto-stop 60s past overtime
-}
-
-// ------------------------------------------------- PartyRock fallback link
-function initPartyRockFallback() {
-  const url = (window.DEEPSEEK_CONFIG && window.DEEPSEEK_CONFIG.partyRockUrl)
-    || (window.PRISMATIC_CONFIG && window.PRISMATIC_CONFIG.partyRockUrl)
-    || "";
-  if (!url) return;
-  const link = document.getElementById("partyRockLink");
-  link.href = url;
-  link.style.display = "";
 }
 
 // --------------------------------------- Dynamic graph for custom topics
@@ -1111,122 +1047,3 @@ STRICT MANDATE:
   }, 350);
 }
 
-// ------------------------------------------------- Shark Q&A theater
-// Scripted judge-vs-founder exchanges (verbatim from PRESENTER_TALKING_POINTS.md).
-// Fully offline: makes the demo present itself with one click.
-const SHARK_QA = [
-  {
-    short: "Q1 · ChatGPT?",
-    q: "How does this differ from typing 'explain this to me' into ChatGPT?",
-    a: "ChatGPT is passive text generation: it dumps 800 words that cause cognitive glaze. Prismatic is an agentic multi-widget pipeline — a 30-second diagnostic triage plus 4 modalities, including a Socratic partner that forces active recall instead of lecturing."
-  },
-  {
-    short: "Q2 · Why Quick?",
-    q: "Why did you use Amazon Quick instead of coding a frontend from scratch?",
-    a: "Velocity and multi-model orchestration. In a 75-minute sprint, hand-coding auth, state, and Bedrock calls invites bugs. Quick's Apps mode let our 10-person team chain inputs into text, image, and chatbot widgets on one screen with zero boilerplate."
-  },
-  {
-    short: "Q3 · Cheating?",
-    q: "How do you prevent students from using this to cheat?",
-    a: "Prismatic is engineered for retention, not answer generation. The Socratic module is capped at 2 sentences and asks conceptual 'why' questions. It cannot write essays — it trains students to master mechanics for in-person exams."
-  },
-  {
-    short: "Q4 · Revenue?",
-    q: "What is your revenue and distribution model?",
-    a: "B2B university licensing integrated into Canvas, plus a freemium student tier. Universities already spend millions on retention — Prismatic directly lifts course completion rates."
-  },
-  {
-    short: "Q5 · Hallucinations?",
-    q: "How do you guarantee your Socratic AI won't hallucinate incorrect facts before an exam?",
-    a: "Dual-layer guardrails: strict zero-shot syllabus grounding that penalizes extrapolation, plus a Socratic engine hard-capped to 2 sentences in inquiry-only mode — it never asserts facts, it interrogates them."
-  },
-  {
-    short: "Q6 · Quick vs Amplify?",
-    q: "Why Amazon Quick over a custom Next.js app on AWS Amplify?",
-    a: "Zero infrastructure attack surface with enterprise IAM governance. Quick gives native multi-widget chaining and serverless Bedrock scaling in 60 minutes — campus IT can approve it for 50,000 students without auditing custom backends."
-  }
-];
-
-let sharkQaRunId = 0;
-
-function renderSharkQAButtons() {
-  const grid = document.getElementById("qaQuestionGrid");
-  if (!grid) return;
-  grid.innerHTML = SHARK_QA.map((item, i) =>
-    `<button class="qa-btn" data-qa="${i}">🦈 ${escapeHtml(item.short)}</button>`
-  ).join("");
-  grid.querySelectorAll(".qa-btn").forEach(btn => {
-    btn.addEventListener("click", () => playSharkQA(Number(btn.dataset.qa)));
-  });
-}
-
-function sharkStage() {
-  return document.getElementById("qaStage");
-}
-
-function clearSharkStage() {
-  sharkQaRunId++;
-  const stage = sharkStage();
-  if (stage) stage.innerHTML = '<div class="qa-empty">Select a question above — the sharks are waiting.</div>';
-  document.querySelectorAll(".qa-btn.playing").forEach(b => b.classList.remove("playing"));
-}
-
-function appendSharkBubble(sender, speaker, text) {
-  const stage = sharkStage();
-  const empty = stage.querySelector(".qa-empty");
-  if (empty) empty.remove();
-  const div = document.createElement("div");
-  div.className = `chat-bubble ${sender === "judge" ? "bubble-judge" : "bubble-founder"}`;
-  const label = document.createElement("span");
-  label.className = "bubble-speaker";
-  label.textContent = speaker;
-  const body = document.createElement("div");
-  body.textContent = text;
-  div.appendChild(label);
-  div.appendChild(body);
-  stage.appendChild(div);
-  stage.scrollTop = stage.scrollHeight;
-}
-
-function playSharkQA(i) {
-  const run = ++sharkQaRunId;
-  const item = SHARK_QA[i];
-  if (!item) return;
-  document.querySelectorAll(".qa-btn.playing").forEach(b => b.classList.remove("playing"));
-  const btn = document.querySelector(`.qa-btn[data-qa="${i}"]`);
-  if (btn) btn.classList.add("playing");
-  appendSharkBubble("judge", "🦈 Shark Judge", item.q);
-  setTimeout(() => {
-    if (run !== sharkQaRunId) return;
-    appendSharkBubble("founder", "🎓 Prismatic Founder", item.a);
-    if (btn) btn.classList.remove("playing");
-  }, 1400);
-}
-
-function playFullGauntlet() {
-  const run = ++sharkQaRunId;
-  clearSharkStageSilent();
-  let delay = 300;
-  SHARK_QA.forEach((item, i) => {
-    setTimeout(() => {
-      if (run !== sharkQaRunId) return;
-      document.querySelectorAll(".qa-btn.playing").forEach(b => b.classList.remove("playing"));
-      const btn = document.querySelector(`.qa-btn[data-qa="${i}"]`);
-      if (btn) btn.classList.add("playing");
-      appendSharkBubble("judge", "🦈 Shark Judge", item.q);
-    }, delay);
-    delay += 1600;
-    setTimeout(() => {
-      if (run !== sharkQaRunId) return;
-      appendSharkBubble("founder", "🎓 Prismatic Founder", item.a);
-      const btn = document.querySelector(`.qa-btn[data-qa="${i}"]`);
-      if (btn) btn.classList.remove("playing");
-    }, delay);
-    delay += 2200;
-  });
-}
-
-function clearSharkStageSilent() {
-  const stage = sharkStage();
-  if (stage) stage.innerHTML = "";
-}

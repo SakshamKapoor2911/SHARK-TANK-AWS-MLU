@@ -55,7 +55,7 @@
   4. *Quantum Superposition & Entanglement* (Physics / Engineering)
   5. *TCP 3-Way Handshake* (Networking / Systems)
   6. *🎲 Surprise Me* (Instant randomized topic injection for curveball judges)
-* **Stage Mode [P]**: Presenter view with 15% larger typography, high-contrast borders, and high-visibility countdown timer.
+* **Stage Mode [P]**: Presenter view with larger typography and high-contrast borders for readability from 6 feet away.
 * **DeepSeek V4 Flash Integration**: Optional toggle for live generative inference via local storage API key (`config.local.js` gitignored).
 
 ---

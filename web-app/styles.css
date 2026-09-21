@@ -256,14 +256,6 @@ body.stage-mode .card {
   box-shadow: 0 0 35px rgba(0, 196, 159, 0.12);
   border-color: #4a8fc2;
 }
-body.stage-mode .presenter-cue-bar {
-  background: rgba(19, 24, 34, 0.98);
-  border-top: 2px solid var(--amber-neon);
-}
-body.stage-mode .cue-timer {
-  font-size: 1.65rem;
-  color: var(--amber-neon);
-}
 
 .badge-emerald {
   background: rgba(16, 185, 129, 0.15);
@@ -1039,25 +1031,7 @@ textarea:focus {
   display: block;
 }
 
-/* Judge handouts bar (deck PDF, cue cards, source) */
-.handouts-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-  background: var(--surface-card);
-  border: 1px dashed var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 0.7rem 1.1rem;
-  margin-bottom: 1.25rem;
-  font-size: 0.82rem;
-}
-
-.handouts-label {
-  font-weight: 800;
-  color: var(--text-high);
-}
-
+/* Judge handout links (also used by the site footer) */
 .handouts-link {
   color: var(--cyan-neon);
   font-weight: 600;
@@ -1069,65 +1043,6 @@ textarea:focus {
 
 .handouts-link:hover {
   border-color: var(--cyan-neon);
-}
-
-/* Presenter Cue Bar */
-.presenter-cue-bar {
-  background: var(--surface-inner);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 0.9rem 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.85rem;
-}
-
-.cue-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.cue-title {
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  color: var(--text-high);
-}
-
-.cue-chips {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.cue-chip {
-  background: var(--surface-card);
-  border: 1px solid var(--border-subtle);
-  padding: 0.3rem 0.65rem;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-}
-
-.cue-chip.active {
-  border-color: var(--cyan-neon);
-  background: rgba(0, 196, 159, 0.12);
-}
-
-.chip-time {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  color: var(--cyan-neon);
-}
-
-.chip-name {
-  color: var(--text-high);
-  font-weight: 600;
 }
 
 /* ==============================================================================
@@ -1210,169 +1125,6 @@ textarea:focus {
 }
 
 /* ==============================================================================
-   PITCH TIMER (interactive 120s countdown in the presenter cue bar)
-   ============================================================================== */
-
-.cue-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.cue-timer {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text-white);
-  background: var(--surface-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 0.3rem 0.7rem;
-  min-width: 4.5rem;
-  text-align: center;
-}
-
-.cue-timer.overtime {
-  color: var(--coral-neon);
-  border-color: var(--coral-neon);
-}
-
-.cue-chip.lit {
-  border-color: var(--amber-neon);
-  background: rgba(245, 158, 11, 0.12);
-}
-
-.cue-chip.done {
-  border-color: var(--emerald-neon);
-  opacity: 0.75;
-}
-
-.cue-chip.done .chip-time {
-  color: var(--emerald-neon);
-}
-
-.cue-fallback-link {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--cyan-neon);
-  text-decoration: none;
-  border: 1px solid var(--cyan-neon);
-  border-radius: var(--radius-full);
-  padding: 0.3rem 0.75rem;
-}
-
-.cue-fallback-link:hover {
-  background: rgba(0, 196, 159, 0.12);
-}
-
-/* ==============================================================================
-   SHARK Q&A THEATER (simulated judges vs. founders)
-   ============================================================================== */
-
-.qa-section {
-  background: var(--surface-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 1.75rem;
-  margin-bottom: 2rem;
-}
-
-.qa-controls {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.qa-question-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.qa-btn {
-  background: var(--surface-inner);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-high);
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 0.65rem 0.75rem;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  text-align: left;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  line-height: 1.35;
-}
-
-.qa-btn:hover {
-  border-color: var(--coral-neon);
-}
-
-.qa-btn.playing {
-  border-color: var(--amber-neon);
-  box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
-}
-
-.qa-stage {
-  min-height: 180px;
-  max-height: 340px;
-  overflow-y: auto;
-  background: var(--surface-inner);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 1.15rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.qa-empty {
-  color: var(--text-dim);
-  font-size: 0.85rem;
-  text-align: center;
-  margin: auto;
-}
-
-.bubble-judge {
-  align-self: flex-start;
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid var(--coral-neon);
-  color: var(--text-high);
-  border-top-left-radius: 2px;
-}
-
-.bubble-judge .bubble-speaker {
-  color: var(--coral-neon);
-  font-size: 0.72rem;
-  font-weight: 700;
-  margin-bottom: 0.2rem;
-  display: block;
-}
-
-.bubble-founder {
-  align-self: flex-end;
-  background: rgba(0, 196, 159, 0.08);
-  border: 1px solid var(--cyan-neon);
-  color: var(--text-high);
-  border-top-right-radius: 2px;
-}
-
-.bubble-founder .bubble-speaker {
-  color: var(--cyan-neon);
-  font-size: 0.72rem;
-  font-weight: 700;
-  margin-bottom: 0.2rem;
-  display: block;
-}
-
-@media (max-width: 600px) {
-  .qa-question-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ==============================================================================
    REDUCED MOTION (accessibility: disable transitions/animations on request)
    ============================================================================== */
 
@@ -1387,6 +1139,24 @@ textarea:focus {
   .bg-glow {
     display: none;
   }
+}
+
+/* Site footer (source link) */
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  padding: 0.5rem 0.25rem 1rem;
+}
+
+.site-footer .handouts-link {
+  color: var(--cyan-neon);
+  font-weight: 600;
+  text-decoration: none;
 }
 
 /* ==============================================================================
@@ -1408,7 +1178,7 @@ textarea:focus {
 
   .card,
   .modalities-section,
-  .presenter-cue-bar {
+  .site-footer {
     break-inside: avoid;
   }
 }
