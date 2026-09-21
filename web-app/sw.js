@@ -1,5 +1,5 @@
 /* Prismatic offline cache: demo survives venue Wi-Fi outages. */
-const CACHE = "prismatic-v1";
+const CACHE = "prismatic-v2";
 const CORE = [
   "./",
   "index.html",
