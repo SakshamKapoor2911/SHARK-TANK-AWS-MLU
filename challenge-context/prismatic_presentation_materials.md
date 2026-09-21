@@ -13,9 +13,9 @@
 
 ```
 [0:00 - 0:25] THE RELATABLE HOOK
-"Judges, picture a 300-person lecture hall right here at Howard or UMD. The professor spends 75 minutes covering one complex concept. Half the class walks out nodding; the other half walks out completely lost, staring at a 40-page slide deck with intense brain fog. 
+"Judges, it’s 2:00 AM before midterms. You’ve re-read the exact same textbook paragraph six times—and understood it zero times. You turn to ChatGPT in desperation, and it dumps an 800-word wall of text that makes your brain freeze even harder.
 
-The problem isn't that college students aren't smart. The problem is that white light contains every color, but a flat chalkboard only projects one shade. Professors teach in one rigid format, while human brains process information in completely different spectrums."
+That sinking panic isn't a lack of intelligence—it's a failure of wavelength. White light contains every color, but professors lecture in one flat shade. Human brains don't think in monochrome—we learn in spectrums."
 
 [0:25 - 0:50] THE SOLUTION: INTRODUCING PRISMATIC
 "That is why we built Prismatic. Prismatic is an agentic learning engine on Amazon Quick that acts as a cognitive prism. In under 30 seconds, a rapid 5-question diagnostic maps how your brain actually absorbs information—whether you need analogies, visual flowcharts, Socratic active recall, or an emergency 15-minute action sprint. 

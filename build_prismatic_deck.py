@@ -189,14 +189,14 @@ def build_prismatic_masterpiece():
     pp2.space_after = Pt(4)
 
     pp3 = tf_pres.add_paragraph()
-    pp3.text = "THE 300-STUDENT LECTURE HALL PARADOX:"
+    pp3.text = "THE 2:00 AM COGNITIVE PARADOX:"
     pp3.font.name = "Segoe UI"
     pp3.font.size = Pt(12)
     pp3.font.bold = True
     pp3.font.color.rgb = BLUE_ACCENT
 
     pp4 = tf_pres.add_paragraph()
-    pp4.text = "One professor teaches 300 students in one rigid format. White light contains every color, but a flat chalkboard only projects one shade. When students freeze with intense brain fog, it's not a lack of intelligence—it's a cognitive mismatch."
+    pp4.text = "It’s 2:00 AM before a midterm. A student re-reads the same paragraph six times, asks ChatGPT, and gets an 800-word text wall that heightens panic. The issue isn't intelligence—it's wavelength. Lectures broadcast in monochrome, while human brains learn in spectrums."
     pp4.font.name = "Segoe UI"
     pp4.font.size = Pt(11.5)
     pp4.font.color.rgb = TEXT_LIGHT
@@ -256,8 +256,10 @@ def build_prismatic_masterpiece():
         "[0:00 - 0:10] SEGMENT 1: TEAM NAME (10s)\n"
         "\"Good afternoon, judges and fellow builders! We are PRISMATIC—and we are here to refract the way college students learn!\"\n\n"
         "[0:10 - 0:35] SEGMENT 2: THE HOOK (25s)\n"
-        "\"Picture a 300-person lecture hall right here at Howard or UMD. The professor spends 75 minutes covering one complex concept. Half the class nods; the other half walks out completely lost with intense brain fog.\n"
-        "The problem isn't student intellect. White light contains every color, but a flat chalkboard only projects one shade. Professors teach in one rigid format, while human brains process knowledge in completely different spectrums.\""
+        "\"It’s 2:00 AM before midterms. You’ve re-read the exact same textbook paragraph six times—and understood it zero times. [Micro-pause] "
+        "You turn to ChatGPT in desperation, and it dumps an 800-word wall of text that makes your brain freeze even harder.\n"
+        "That sinking panic isn't a lack of intelligence—it's a failure of wavelength. White light holds every color, but professors lecture in one flat shade. "
+        "Human brains don't think in monochrome—we learn in spectrums.\""
     )
 
     # ==============================================================================
