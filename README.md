@@ -19,7 +19,9 @@ SHARK-TANK-AWS-MLU/
     ├── undergrad_problems_and_ideas_2026.md      # Unfinalized brainstorm of 2026 undergrad pain points & concepts
     ├── amazon_quick_setup_guide.md              # Setup, access methods, and sprint guide for Amazon Quick & PartyRock
     ├── agentic_learning_multimodal_plan.md      # Deep architectural blueprint for 4-modality diagnostic engine
-    └── prismatic_build_kit.md                   # Ready-to-use seed prompt, widget map, and 2-min pitch script for Prismatic
+    ├── prismatic_build_kit.md                   # Ready-to-use seed prompt, widget map, and 2-min pitch script for Prismatic
+    ├── prismatic_extended_modalities.md         # Slide decks, Socratic sparring, exam trap matrix, and flashcards
+    └── prismatic_presentation_materials.md      # 2-minute timed pitch, 10-person role cards, 4-slide deck, and Q&A defense
 ```
 
 ---
