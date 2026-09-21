@@ -89,7 +89,7 @@ input:focus-visible,
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(8, 11, 19, 0.90);
+  background: rgba(11, 14, 20, 0.92);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
   padding: 0.85rem 1.5rem;
@@ -110,12 +110,12 @@ input:focus-visible,
   width: 40px;
   height: 40px;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(180, 100, 255, 0.2));
+  background: linear-gradient(135deg, rgba(0, 196, 159, 0.2), rgba(74, 143, 194, 0.2));
   border: 1px solid var(--cyan-neon);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 196, 159, 0.25);
   flex-shrink: 0;
 }
 
