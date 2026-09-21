@@ -1,0 +1,108 @@
+{
+  "event": {
+    "name": "Shark Tank App-Build Challenge",
+    "series": "Cloud Connect — Howard 2026",
+    "partners": [
+      "AWS (Amazon Web Services)",
+      "MLU (Machine Learning University)",
+      "BEN Tech (Black Employee Network Tech)",
+      "Howard University"
+    ],
+    "dates": "September 21 – 22, 2026",
+    "location": "Howard University, Washington D.C. & Amazon HQ2",
+    "format": {
+      "team_size": "~10 students per team",
+      "sprint_duration": "60–75 minutes",
+      "presentation": "2-minute overview per team (team name + what the app does; no live demo required)",
+      "voting": "Peer voting within breakout room (1 vote per team, cannot vote for own team). Top team becomes room champion.",
+      "finals": "Room champions present to head judges on the main stage for overall win."
+    },
+    "tools": {
+      "primary": "Amazon Quick (Recommended path: Apps — describe app in plain English to build working web app. Alternative: Chat)",
+      "fallback": "PartyRock (AWS Bedrock-based playground)"
+    }
+  },
+  "scenarios": [
+    {
+      "id": 1,
+      "title": "Fuel Up: Healthy Eating Coach",
+      "domain": "Wellness • Nutrition",
+      "mission": "First-year students are living on ramen and vending-machine snacks. Build an app that helps a student eat better on a tight budget and busy schedule.",
+      "requirements": [
+        "Enter fridge/dining-hall options and get quick, healthy meal ideas",
+        "Get a grocery list that fits a weekly budget they set",
+        "Ask nutrition questions and get friendly, non-judgy answers"
+      ],
+      "stretch_goals": [
+        "Generate a motivational 'meal of the day' image",
+        "Suggest swaps based on a goal",
+        "Adjust for allergies or vegetarian/halal preferences"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Study Buddy: The AI Learning Sidekick",
+      "domain": "Academics • Productivity",
+      "mission": "Studying alone is hard and boring. Build a study companion that helps a student understand tough material and stay on track for exams.",
+      "requirements": [
+        "Paste in notes or a topic and get a plain-English explanation",
+        "Generate practice questions or flashcards",
+        "Get a study plan for the days before an exam"
+      ],
+      "stretch_goals": [
+        "Adopt a 'tutor personality' the student can choose",
+        "Explain a concept at 3 difficulty levels",
+        "Create a motivational study-session image"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Money Moves: Student Budget Planner",
+      "domain": "Finance • Life Skills",
+      "mission": "Managing money in college is stressful and rarely taught. Build an app that helps a student understand their spending and plan ahead.",
+      "requirements": [
+        "Enter income and expenses to see where money goes",
+        "Get a simple monthly budget they can adjust",
+        "Ask money questions and get clear guidance"
+      ],
+      "stretch_goals": [
+        "Suggest ways to cut spending",
+        "Set a savings goal and show how long it'll take",
+        "Generate an encouraging 'financial wins' summary"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Campus Compass: Navigate College Life",
+      "domain": "Community • Belonging",
+      "mission": "New students don't know where to go, what's happening, or who to ask. Build a friendly guide that helps them find their footing on campus.",
+      "requirements": [
+        "Ask questions about campus life and get welcoming answers",
+        "Get club/event suggestions based on interests",
+        "Find the right office or resource for a problem"
+      ],
+      "stretch_goals": [
+        "Generate a personalized 'first-week checklist'",
+        "Suggest ways to make friends",
+        "Create a hype image for a club or event"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Balance: Wellness & Stress Companion",
+      "domain": "Mental Health • Student Wellbeing",
+      "mission": "Navigating academic rigor, social shifts, and college pressure leads to burnout and stress. Build an empathetic companion to help students decompress, manage stress, and access campus mental health resources.",
+      "requirements": [
+        "Check in on daily mood/stress level and receive calming, constructive exercises or check-ins",
+        "Guided breathing, micro-meditation, or quick reset routines between classes",
+        "Direct routing and guidance to campus counseling, wellness centers, and crisis resources"
+      ],
+      "stretch_goals": [
+        "Generate personalized self-care challenges or calming visualizations",
+        "Mood tracking insights showing weekly stress triggers and trends",
+        "Positive affirmation generator tailored to exam or presentation anxiety"
+      ],
+      "note": "Extrapolated from handout scenario header and student wellness domain context."
+    }
+  ]
+}
